@@ -237,12 +237,13 @@ var gridTable = {
 					{
 						// 如果有指定變更THEAD TH 文字內容 - 預設為取出OBJECT 的KEY值
 						var _thTitle = (self.columns[tableName]!=undefined && self.columns[tableName].title!=undefined) ? self.columns[tableName].title : tableName;
+						var _thWidth = (self.columns[tableName]!=undefined && self.columns[tableName].width!=undefined) ? "width='"+self.columns[tableName].width+"'" : '';
 						// 變更CSS用的變數
 						var listClass='';
 						// 如果檢視為FALSE時 - 隱藏TH
 						if(self.tData.getList[tableName].view===false) listClass+=' hide';
 						// 產生THEAD TH內容
-						_head += "<th class='"+listClass+"' tableName='"+tableName+"'>"+_thTitle+"</th>";
+						_head += "<th class='"+listClass+"' tableName='"+tableName+"' "+_thWidth+" >"+_thTitle+"</th>";
 					}
 				}
 				
