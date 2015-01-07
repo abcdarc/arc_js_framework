@@ -66,11 +66,11 @@
 			},
 			columns:{
 				id:{title:'編號'},
-				name:{title:'姓名'},
-				email:{title:'電子郵件'},
-				tel:{title:'聯絡電話'},
-				mobile:{title:'手機'},
-				old:{title:'年齡'}
+				name:{title:'姓名',width:'150px'},
+				email:{title:'電子郵件',width:'250px'},
+				tel:{title:'聯絡電話',width:'150px'},
+				mobile:{title:'手機',width:'150px'},
+				old:{title:'年齡',width:'80px'}
 			}
 			,edtable:true
 			
@@ -132,7 +132,7 @@ _#arc_dataGrid tfoot tr:last-child td:last-child{border-bottom-right-radius:3px;
 /* TH 字體大小 */
 #arc_dataGrid table th{font-size:14px;}
 /* TD 字體大小 */
-#arc_dataGrid table td{font-size:13px;}
+#arc_dataGrid table td{font-size:13px;height:30px;}
 _#arc_dataGrid tr th:first-child, _#arc_dataGrid tr td:first-child{border-left:1px solid #ccc;}
 /* TD TH 固定左邊有格線 */
 #arc_dataGrid tr th, #arc_dataGrid tr td{padding:5px;border-right:1px solid #ccc;}
@@ -148,14 +148,14 @@ _#arc_dataGrid thead tr:first-child th{border-top:1px solid #ccc;}
 /* TBODY - 的TR滑鼠移置時 - 變更所有TD底色 */
 #arc_dataGrid tbody tr:hover td{color:#fff; background: #3af;}
 /* TBODY - 的TR交換變更背景顏色 */
-_#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #efefef;}
+_#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f3f3f3;}
 /* TFOOT 的TD 背景顏色 */
 #arc_dataGrid tfoot td{background:#eee;border-top:#ccc solid 1px;}
 /* 連結被取消時的樣式 */
 #arc_dataGrid a.normal, #arc_dataGrid a.normal:hover{color:#aaa;border:1px solid #eee;background:#fff;cursor:text;}
 /* 隱藏內容 */
 #arc_dataGrid .hide{display:none;}
-#arc_dataGrid input{border:1px solid #efefef;border-radius:2px;padding:5px;width:95%;}
+#arc_dataGrid input[type=text]{border:1px solid #efefef;border-radius:2px;padding:5px;width:90%;}
 </style>
 
 </head>
