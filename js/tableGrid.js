@@ -7,11 +7,13 @@ var gridTable = {
 	columns:{}, // 表單控制設定
 	gridError:[], // 錯誤訊息
 	isCreateTable:false, // 是否已產生表格物件
-	isTable:false, 
+	isTable:false, // 物件或物件內 是否有Table
+	edtable:false,// 編輯表單類別
+	onEdit:false, // 是否正在編輯中
 	tbodyHtml:'', // 
 	theadHtml:'', // 
 	tfootHtml:'', //  
-	tempValue:{},//
+	tempValue:{}, // 暫存用值
 	// 設定gridTable
 	init:function(setting){
 		var self = this;
@@ -36,6 +38,8 @@ var gridTable = {
 			return false;
 		}
 		else self.tableObj = setting.obj;
+		
+		if(setting.edtable!=undefined) self.edtable = setting.edtable;
 		
 		// 是否開啟測式
 		if(setting.test!=undefined) self.test.showTestTime = setting.test; 
@@ -238,7 +242,7 @@ var gridTable = {
 						// 如果檢視為FALSE時 - 隱藏TH
 						if(self.tData.getList[tableName].view===false) listClass+=' hide';
 						// 產生THEAD TH內容
-						_head += "<th class='"+listClass+"'>"+_thTitle+"</th>";
+						_head += "<th class='"+listClass+"' tableName='"+tableName+"'>"+_thTitle+"</th>";
 					}
 				}
 				
@@ -290,14 +294,14 @@ var gridTable = {
 		// 產生表單STYLE
 		if(!self.isCreateTable) self.createTableCss(); 
 		
+		// 設定Tr點擊作業
+		if((self.edtable==true || self.edtable=='tdedit') && self.onEdit==false) self.setTdClick();
+		
 		// 設定[翻頁連結]點擊作業
 		self.tData.setFlipPageClick(self, self.tableObj); 
 		
 		// 檢查是否已建立TABLE - 如果沒有就變有
 		if(!self.isCreateTable) self.isCreateTable = true; // [標示為]已產生表格物件
-		
-		// 設定Tr點擊作業
-		self.setTdClick();
 		
 		// 如果有設定 - 取出程式測式時間
 		if(self.test.showTestTime && self.test!=undefined) self.test.endRun(self.tableObj); // 結束測式 ############################## 
@@ -307,7 +311,7 @@ var gridTable = {
 		self.tableObj.find('table tbody').removeClass('evenbk');
 		self.tableObj.find('table tbody tr:odd').addClass('evenbk');
 	},
-	// TBODY - TR點擊作業
+	// TR點擊作業
 	setTrClick:function(){
 		var self = this;
 		var obj = self.tableObj;
@@ -315,47 +319,82 @@ var gridTable = {
 		obj.find('tbody tr').unbind('click').bind('click',function(){
 			alert($(this).attr('list_id'));
 		});
-	},// TR點擊作業
+	},
+	// TR點擊作業
 	setTdClick:function(){
 		var self = this;
 		var obj = self.tableObj;
 		
 		obj.find('tbody tr td').unbind('click').bind('click',function(){
-			var mobj = $(this).parent();
-			var _index = obj.find('tbody tr') .index(mobj);
-			var keyid = mobj.attr('list_id');
-			alert(_index+' / '+keyid);
+			if(self.onEdit===true) return false;
+			var data ={};
+			var mobj = $(this).parent(); // 取得所屬行物件
+			var trIndex = obj.find('tbody tr') .index(mobj); // 列流水號
+			var tdIndex = obj.find('tbody tr').eq(trIndex).find('td').index(this); // 取得行流水號
+			data.name= obj.find('thead th').eq(tdIndex).attr('tableName'); // 取得資料表名稱
+			data.type = self.tData.getList[data.name].edtype; // 取得表單類別
+			var keyid = mobj.attr('list_id'); // 取得
+			self.tdToEdit($(this), data); // 開始編輯表單
 		});
 	},
-	// 
-	tdToEdit:function(obj){
+	// 產生編輯物件
+	tdToEdit:function(obj, data){
 		var self = this;
-		self.tempValue.html = obj.html();
-		self.tempValue.input = self.createInput();
-		obj.html();
+		self.tempValue.html = obj.html(); // 記錄TD目前內容
+		self.tempValue.text = obj.text(); // 記錄目前值
+		data.value = self.tempValue.text; // 輸入值
+		self.tempValue.input = self.createInput(data); // 產生表單
+		obj.html(self.tempValue.input); // 載入表單
+		
+		// 選取新增的表單
+		var edObj = obj.find('input,textarea,select');
+		edObj.focus();
+		self.onEdit = true; // 變更為編輯狀態
+		
+		// 當取消選取表單時 - 檢查
+		edObj.blur(function(){
+			self.onEdit = false;
+			// 如果值沒變
+			if($(this).val()==self.tempValue.text)
+			{
+				obj.html(self.tempValue.html); // 返回原本的html值
+				return false;
+			}
+			// 如果值變了
+			else
+			{
+				alert('change AND save newVale='+$(this).val());
+				obj.html($(this).val());
+			}
+		});
 	},
-	createInput:function(name, type, value, list, tags){
+	// 結束編輯
+	endEdit:function(){
+		
+	},
+	// 產生表單物件name, type, value, list, tags
+	createInput:function(data){
 		var self = this;
 		var input = '';
 		
-		switch(type)
+		switch(data.type)
 		{
 			case 'text': case 'hiddd': case 'radio': case 'checkbox': case 'submit': case 'botton': case 'image': case 'file': case 'password':
-				input = "<input name='"+name+"' type='"+type+"' value='"+value+"' />";
+				input = "<input name='"+data.name+"' type='"+data.type+"' value='"+data.value+"' />";
 			break;
 			
 			case 'textarea':
-				input = "<textarea name='' value=''>"+value+"</textarea>";
+				input = "<textarea name='"+data.name+"' >"+data.value+"</textarea>";
 			break;
 			
 			case 'select':
-				if(list!=undefined && typeof(list)=='object')
+				if(data.list!=undefined && typeof(data.list)=='object')
 				{
-					input = "<select name='' value=''>";
-					for(var key in list)
+					input = "<select name='"+data.name+"'>";
+					for(var key in data.list)
 					{
 						var selected = (key==value) ? 'selected' : '' ;
-						input += "<option value='' "+selected+">"+list[key]+"</option>";
+						input += "<option value='"+key+"' "+selected+">"+data.list[key]+"</option>";
 					}
 					input += "</select>";
 				}else return false;
