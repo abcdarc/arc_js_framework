@@ -295,8 +295,19 @@ var gridTable = {
 		// 產生表單STYLE
 		if(!self.isCreateTable) self.createTableCss(); 
 		
-		// 設定Tr點擊作業
-		if((self.edtable==true || self.edtable=='tdedit') && self.onEdit==false) self.setTdClick();
+		// 依表單編輯設定 - 產生不同作業
+		if(self.onEdit==false)
+		{
+			// 設定Td點擊作業
+			if((self.edtable==true || self.edtable=='tdEdit')) self.setTdClick();
+			
+			// 設定inlineEdit 
+			if(self.edtable='inlineEdit')
+			{
+				
+			}
+			
+		}
 		
 		// 設定[翻頁連結]點擊作業
 		self.tData.setFlipPageClick(self, self.tableObj); 
@@ -350,24 +361,27 @@ var gridTable = {
 		// 選取新增的表單
 		var edObj = obj.find('input,textarea,select');
 		edObj.focus();
-		self.onEdit = true; // 變更為編輯狀態
+		if(self.onEdit===false) self.onEdit = true; // 變更為編輯狀態
 		
-		// 當取消選取表單時 - 檢查
-		edObj.blur(function(){
-			self.onEdit = false;
-			// 如果值沒變
-			if($(this).val()==self.tempValue.text)
-			{
-				obj.html(self.tempValue.html); // 返回原本的html值
-				return false;
-			}
-			// 如果值變了
-			else
-			{
-				alert('change AND save newVale='+$(this).val());
-				obj.html($(this).val());
-			}
-		});
+		if(self.edtable===true || self.edtable=='tdEdit')
+		{
+			// 當取消選取表單時 - 檢查
+			edObj.blur(function(){
+				self.onEdit = false;
+				// 如果值沒變
+				if($(this).val()==self.tempValue.text)
+				{
+					obj.html(self.tempValue.html); // 返回原本的html值
+					return false;
+				}
+				// 如果值變了
+				else
+				{
+					alert('change AND save newVale='+$(this).val());
+					obj.html($(this).val());
+				}
+			});
+		}
 	},
 	// 結束編輯
 	endEdit:function(){
