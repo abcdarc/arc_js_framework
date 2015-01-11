@@ -10,6 +10,9 @@ var gridTable = {
 	isTable:false, // 物件或物件內 是否有Table
 	edtable:false,// 編輯表單類別
 	onEdit:false, // 是否正在編輯中
+	edIndex:0, // 目前編輯行數ID
+	edRowIndex:0, // 目前編輯列數ID
+	edKeyId:0,// 目前編輯列的KEY值
 	inlineEditRun:false, // 是否已在行編輯中
 	tbodyHtml:'', // 
 	theadHtml:'', // 
@@ -353,11 +356,11 @@ var gridTable = {
 			if(self.onEdit===true) return false;
 			var data ={};
 			var mobj = $(this).parent(); // 取得所屬行物件
-			var trIndex = obj.find('tbody tr') .index(mobj); // 列流水號
-			var tdIndex = obj.find('tbody tr').eq(trIndex).find('td').index(this); // 取得行流水號
-			data.name= obj.find('thead th').eq(tdIndex).attr('tableName'); // 取得資料表名稱
+			self.edIndex = obj.find('tbody tr') .index(mobj); // 取得目前編輯清單列流水號
+			self.edRowIndex = obj.find('tbody tr').eq(self.edIndex).find('td').index(this); // 取得行流水號
+			data.name= obj.find('thead th').eq(self.edRowIndex).attr('tableName'); // 取得資料表名稱
 			data.type = self.tData.getList[data.name].edtype; // 取得表單類別
-			var keyid = mobj.attr('list_id'); // 取得
+			self.edKeyId = mobj.attr('list_id'); // 取得
 			self.tdToEdit($(this), data); // 開始編輯表單
 		});
 	},
@@ -366,37 +369,107 @@ var gridTable = {
 		var self = this;
 		var obj = self.tableObj;
 		
+		// 編輯按鈕
 		obj.find('tbody .arcOnlineEdit').unbind('click').bind('click',function(){
-			if(self.onEdit===true) return false;
+			if(self.onEdit===true) return false; // #######應該要改成 - 如果編輯ID不同 - 詢問是否要存儲 - 或取消儲存
 			var data ={};
 			var mobj = $(this).parents('tr'); // 取得所屬行物件
-			var trIndex = obj.find('tbody tr') .index(mobj); // 列流水號
-			var tdIndex = obj.find('tbody tr').eq(trIndex).find('td').index(this); // 取得行流水號
-			var keyid = mobj.attr('list_id'); // 取得
-			
-			//self.tdToEdit($(this), data); // 開始編輯表單
+			self.edIndex = obj.find('tbody tr') .index(mobj); // 取得目前編輯清單列流水號
+			self.edKeyId = mobj.attr('list_id'); // 取得目前資料KEYID
+			self.toOnlineEdit(self.edIndex);
+			// // 開始編輯表單
 		});
+		
+		// 取消按鈕
+		obj.find('tbody .arcOnlineCancel').unbind('click').bind('click',function(){
+			// 還原清單值
+			var bkobj = $(this).parents('tr');
+			for(var key in self.tempValue.html)
+			{
+				bkobj.find('td:visible').eq(key).html(self.tempValue.html[key]);
+			}
+			
+			// 還原編輯按鈕
+			bkobj.find('input').show();
+			bkobj.find('.arcFromHide').hide();
+			
+			self.edIndex = 0; // 還原編輯值
+			self.edKeyId = 0;// 還原編輯KEYID
+			self.onEdit = false; // 取消
+			self.tempValue={}; // 清空暫存值
+		});
+		
+		// 儲存按鈕
+		obj.find('tbody .arcOnlineSave').unbind('click').bind('click',function(){
+			alert('Save'); // 先跑AJAX儲存後 - 看結果後再另外處理
+		});
+		
+		// 刪除按鈕
+		obj.find('tbody .arcOnlineDel').unbind('click').bind('click',function(){
+			var check = confirm('是否刪除該筆資料!!!');
+			if(check)
+			{
+				alert('已刪除!!!'); // 刪除後依頁數重新取得資料
+			}else return false;
+		});
+		
+		
 	},
 	// 開始在線編輯
-	toOnlineEdit:function(){
+	toOnlineEdit:function(trIndex){
+		var self = this;
+		var obj = self.tableObj;
+		var rObj = self.tableObj.find('tbody tr:eq('+trIndex+') td:visible');
+		var rLength = rObj.length;
 		
+		rObj.find('input').hide();
+		rObj.find('.arcFromHide').show();
+		
+		// td表格內容變更為表單
+		rObj.each(function(e){
+			var data = {};
+			if(e!=(rLength-1))
+			{
+				data.name= obj.find('thead th:visible').eq(e).attr('tableName'); // 取得資料表名稱
+				data.type = self.tData.getList[data.name].edtype; // 取得表單類別
+				self.tdToEdit($(this), data);
+			}
+		});
+		/*
+		for(var key in self.tempValue.text)
+		{
+			alert(self.tempValue.text[key]);
+		}
+		*/
 	},
 	// 產生編輯物件
 	tdToEdit:function(obj, data){
 		var self = this;
-		self.tempValue.html = obj.html(); // 記錄TD目前內容
-		self.tempValue.text = obj.text(); // 記錄目前值
-		data.value = self.tempValue.text; // 輸入值
-		self.tempValue.input = self.createInput(data); // 產生表單
-		obj.html(self.tempValue.input); // 載入表單
+		if(self.edtable===true || self.edtable=='tdEdit')
+		{
+			self.tempValue.html = obj.html(); // 記錄TD目前內容
+			self.tempValue.text = obj.text(); // 記錄目前值
+			data.value = self.tempValue.text; // 輸入值
+			self.tempValue.input = self.createInput(data); // 產生表單
+			obj.html(self.tempValue.input); // 載入表單
+		}else{
+			if(self.tempValue.html==undefined) self.tempValue.html = [];
+			if(self.tempValue.text==undefined) self.tempValue.text = [];
+			self.tempValue.html.push(obj.html()); // 記錄TD目前內容
+			self.tempValue.text.push(obj.text()); // 記錄目前值
+			var lh = self.tempValue.html.length-1;
+			data.value = self.tempValue.text[lh]; // 輸入值
+			self.tempValue.input = self.createInput(data); // 產生表單
+			obj.html(self.tempValue.input); // 載入表單
+		}
 		
 		// 選取新增的表單
 		var edObj = obj.find('input,textarea,select');
-		edObj.focus();
 		if(self.onEdit===false) self.onEdit = true; // 變更為編輯狀態
 		
 		if(self.edtable===true || self.edtable=='tdEdit')
 		{
+			edObj.focus();
 			// 當取消選取表單時 - 檢查
 			edObj.blur(function(){
 				self.onEdit = false;
@@ -414,6 +487,7 @@ var gridTable = {
 				}
 			});
 		}
+		
 	},
 	// 結束編輯
 	endEdit:function(){
