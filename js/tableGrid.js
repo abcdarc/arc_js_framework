@@ -10,6 +10,7 @@ var gridTable = {
 	isTable:false, // 物件或物件內 是否有Table
 	edtable:false,// 編輯表單類別
 	onEdit:false, // 是否正在編輯中
+	inlineEditRun:false, // 是否已在行編輯中
 	tbodyHtml:'', // 
 	theadHtml:'', // 
 	tfootHtml:'', //  
@@ -173,7 +174,9 @@ var gridTable = {
 			self.tableObj.find('tfoot').remove();
 			var oldtfoot = (self.tfootHtml!='') ? self.tfootHtml : '' ;
 			self.tableObj.find('tbody').eq(0).after("<tfoot>"+oldtfoot+"<tr><td colspan='"+self.tData.listNb+"' class='flipPageBox'><span>"+flipPageBar+"</span></td></tr></tfoot>");
-		}else{
+		}
+		else
+		{
 			self.tableObj.find('tbody :last-child td').attr('style','border-bottom:0px;');
 		}
 		// 設定[翻頁連結]點擊作業
@@ -273,9 +276,10 @@ var gridTable = {
 		if(self.tData.totalPage>1)
 		{
 			var flipPageBar = self.tData.createFlipPageBar();
-			
 			tfoot += "<tr><td colspan='"+self.tData.listNb+"' class='flipPageBox'><span>"+flipPageBar+"</span></td></tr></tfoot>";
-		}else{
+		}
+		else
+		{
 			self.tableObj.find('tbody :last-child td').attr('style','border-bottom:0px;');
 		}
 		table = (!self.isCreateTable) ? '<div id="arc_dataGrid">'+table+thead+tbody+tfoot+'</table></div>' : tbody+tfoot ;
@@ -302,9 +306,16 @@ var gridTable = {
 			if((self.edtable==true || self.edtable=='tdEdit')) self.setTdClick();
 			
 			// 設定inlineEdit 
-			if(self.edtable='inlineEdit')
+			if(self.edtable=='inlineEdit')
 			{
-				
+				// 產生TH管理格
+				if(self.inlineEditRun==false)
+				{
+					self.tableObj.find('thead tr').append("<th width='80'>管理</th>");
+					self.inlineEditRun = true;
+				}
+				// 產生編輯按鈕
+				self.tableObj.find('tbody tr').append("<td style='text-align:center;'><input type='button' value='編輯' class='arcOnlineEdit arcfrbtn' /><input type='button' value='刪除' class='arcOnlineDel arcfrbtn' /><input type='button' value='儲存' class='arcOnlineSave arcfrbtn arcFromHide' /><input type='button' value='取消' class='arcOnlineCancel arcfrbtn arcFromHide'/></td>");
 			}
 			
 		}
