@@ -12,7 +12,7 @@
 		
 	//tableData = [];
 	$(function(){
-		/*
+		/**/
 		var table = new tableGrid({
 			obj:$('#A'),//$('body'), // 指定容器
 			test:true,
@@ -20,7 +20,7 @@
 			data:{
 				data:tableData, // 指定讀取資料
 				dataKey:'id',// 設定鍵值
-				pageShowNb : 30, // 每頁顯示筆數 : 預設為20筆
+				pageShowNb : 2, // 每頁顯示筆數 : 預設為20筆
 				showPageLink : 10, // 每頁顯示翻頁連結數 : 預設為5筆 , 最多9筆 , 只會是積數
 				totalRow: tableData.length, // 設定全部資料筆數
 				// 取出資料表名稱
@@ -35,15 +35,16 @@
 			},
 			// 
 			columns:{
-				id:{title:'編號'},
-				name:{title:'姓名'},
-				email:{title:'電子郵件'},
-				tel:{title:'聯絡電話'},
-				mobile:{title:'手機'},
-				old:{title:'年齡'}
-			}
+				id:{title:'編號',width:'50px'},
+				name:{title:'姓名',width:'150px'},
+				email:{title:'電子郵件',width:'250px'},
+				tel:{title:'聯絡電話',width:'150px'},
+				mobile:{title:'手機',width:'150px'},
+				old:{title:'年齡',width:'80px'}
+			},
+			edtable:true
 		});
-		*/
+		
 		var table2 = new tableGrid({
 			obj:$('#B'), // 指定容器
 			test:true,
@@ -51,7 +52,7 @@
 			data:{
 				data:tableData, // 指定讀取資料
 				dataKey:'id',// 設定鍵值
-				pageShowNb : 10, // 每頁顯示筆數 : 預設為20筆
+				pageShowNb : 3, // 每頁顯示筆數 : 預設為20筆
 				showPageLink : 10, // 每頁顯示翻頁連結數 : 預設為5筆 , 最多9筆 , 只會是積數
 				totalRow: tableData.length, // 設定全部資料筆數
 				// 取出資料表名稱
