@@ -354,11 +354,11 @@ var gridTable = {
 		
 		obj.find('tbody tr td').unbind('click').bind('click',function(){
 			if(self.onEdit===true) return false;
-			var data ={};
+			var data = {};
 			var mobj = $(this).parent(); // 取得所屬行物件
 			self.edIndex = obj.find('tbody tr') .index(mobj); // 取得目前編輯清單列流水號
 			self.edRowIndex = obj.find('tbody tr').eq(self.edIndex).find('td').index(this); // 取得行流水號
-			data.name= obj.find('thead th').eq(self.edRowIndex).attr('tableName'); // 取得資料表名稱
+			data.name = obj.find('thead th').eq(self.edRowIndex).attr('tableName'); // 取得資料表名稱
 			data.type = self.tData.getList[data.name].edtype; // 取得表單類別
 			self.edKeyId = mobj.attr('list_id'); // 取得
 			self.tdToEdit($(this), data); // 開始編輯表單
@@ -430,7 +430,7 @@ var gridTable = {
 			var data = {};
 			if(e!=(rLength-1))
 			{
-				data.name= obj.find('thead th:visible').eq(e).attr('tableName'); // 取得資料表名稱
+				data.name = obj.find('thead th:visible').eq(e).attr('tableName'); // 取得資料表名稱
 				data.type = self.tData.getList[data.name].edtype; // 取得表單類別
 				self.tdToEdit($(this), data);
 			}
@@ -445,6 +445,8 @@ var gridTable = {
 	// 產生編輯物件
 	tdToEdit:function(obj, data){
 		var self = this;
+		
+		// td編輯
 		if(self.edtable===true || self.edtable=='tdEdit')
 		{
 			self.tempValue.html = obj.html(); // 記錄TD目前內容
@@ -452,15 +454,24 @@ var gridTable = {
 			data.value = self.tempValue.text; // 輸入值
 			self.tempValue.input = self.createInput(data); // 產生表單
 			obj.html(self.tempValue.input); // 載入表單
-		}else{
+		}
+		
+		// 行編輯
+		if(self.edtable=='inlineEdit')
+		{
 			if(self.tempValue.html==undefined) self.tempValue.html = [];
 			if(self.tempValue.text==undefined) self.tempValue.text = [];
 			self.tempValue.html.push(obj.html()); // 記錄TD目前內容
 			self.tempValue.text.push(obj.text()); // 記錄目前值
-			var lh = self.tempValue.html.length-1;
-			data.value = self.tempValue.text[lh]; // 輸入值
-			self.tempValue.input = self.createInput(data); // 產生表單
-			obj.html(self.tempValue.input); // 載入表單
+			
+			// 如果被禁止編輯 - 不產生編輯表單物件
+			if(self.tData.getList[data.name].edtable!==false)
+			{
+				var lh = self.tempValue.html.length-1;
+				data.value = self.tempValue.text[lh]; // 輸入值
+				self.tempValue.input = self.createInput(data); // 產生表單
+				obj.html(self.tempValue.input); // 載入表單
+			}
 		}
 		
 		// 選取新增的表單
