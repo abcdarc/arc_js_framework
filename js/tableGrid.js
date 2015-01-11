@@ -333,12 +333,13 @@ var gridTable = {
 		// 如果有設定 - 取出程式測式時間
 		if(self.test.showTestTime && self.test!=undefined) self.test.endRun(self.tableObj); // 結束測式 ############################## 
 	},
+	// TR 表格間隔變色
 	tableTrEvenBkChange:function(){
 		var self= this;
 		self.tableObj.find('table tbody').removeClass('evenbk');
 		self.tableObj.find('table tbody tr:odd').addClass('evenbk');
 	},
-	// TR點擊作業
+	// TR 點擊作業
 	setTrClick:function(){
 		var self = this;
 		var obj = self.tableObj;
@@ -347,7 +348,7 @@ var gridTable = {
 			alert($(this).attr('list_id'));
 		});
 	},
-	// TR點擊作業
+	// TD 點擊作業
 	setTdClick:function(){
 		var self = this;
 		var obj = self.tableObj;
@@ -402,8 +403,8 @@ var gridTable = {
 		// 儲存按鈕
 		obj.find('tbody .arcOnlineSave').unbind('click').bind('click',function(){
 			var savedata = self.tData.getFormValue($(this).parents('tr'));
-			self.tData.viewObj(savedata);return false;
-			alert('Save'); // 先跑AJAX儲存後 - 看結果後再另外處理
+			// self.tData.viewObj(savedata);return false;
+			alert('isSave'); // 先跑AJAX儲存後 - 看結果後再另外處理
 		});
 		
 		// 刪除按鈕
@@ -414,7 +415,6 @@ var gridTable = {
 				alert('已刪除!!!'); // 刪除後依頁數重新取得資料
 			}else return false;
 		});
-		
 		
 	},
 	// 開始在線編輯
@@ -437,12 +437,6 @@ var gridTable = {
 				self.tdToEdit($(this), data);
 			}
 		});
-		/*
-		for(var key in self.tempValue.text)
-		{
-			alert(self.tempValue.text[key]);
-		}
-		*/
 	},
 	// 產生編輯物件
 	tdToEdit:function(obj, data){
