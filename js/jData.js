@@ -161,9 +161,43 @@ var jsData = {
 		obj.find('#next').attr('class',nextclass);
 		obj.find('#last').attr('class',lastclass);
 	},
-	// 取得物件 
-	getObjFormData:function(){
+	// 取出表單資料
+	getFormValue : function(_obj, _data){
+		var data = (_data==undefined) ? {} : _data ;
 		
+		_obj.find('input,select,textarea').each(function(e){
+			
+		
+			// 取出欄位值
+			if($(this).is('[type!=button]') && $(this).is('[type!=submit]') && $(this).attr('name')!==undefined && $(this).attr('name')!='')
+			{	
+				// 如果指定欄位名稱多筆
+				var runarray = (_obj.find('[name='+$(this).attr('name')+']').length>1 && $(this).is('[type!=radio]'));
+				
+				// 將物件轉為陣列
+				if(runarray && typeof(data[$(this).attr('name')])!='object' && typeof(data[$(this).attr('name')])=='undefined' ) data[$(this).attr('name')] = [];
+				
+				var value = ($(this).is('[type=radio]')) ? $(':input[name='+$(this).attr('name')+']:checked').val() : $(this).val() ;
+				
+				// 存入值
+				if(!runarray) data[$(this).attr('name')] = value;
+				else data[$(this).attr('name')].push(value) ;
+			}
+		});
+		return data;
+	},
+	// 檢查物件值
+	viewObj : function(_data, showtype){
+		var data_text = '';
+		var i = 1;
+		for(var key in _data)
+		{
+			data_text += i+'. '+key+'='+_data[key]+"\n";
+			i++;
+		}
+		
+		if(showtype==undefined || showtype=='alert') alert(data_text);
+		if(showtype=='console') console.log(data_text);
 	},
 	// 表單驗證 --外接???
 	validation : function(obj)

@@ -401,6 +401,8 @@ var gridTable = {
 		
 		// 儲存按鈕
 		obj.find('tbody .arcOnlineSave').unbind('click').bind('click',function(){
+			var savedata = self.tData.getFormValue($(this).parents('tr'));
+			self.tData.viewObj(savedata);return false;
 			alert('Save'); // 先跑AJAX儲存後 - 看結果後再另外處理
 		});
 		
