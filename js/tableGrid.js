@@ -316,6 +316,7 @@ var gridTable = {
 				}
 				// 產生編輯按鈕
 				self.tableObj.find('tbody tr').append("<td style='text-align:center;'><input type='button' value='編輯' class='arcOnlineEdit arcfrbtn' /><input type='button' value='刪除' class='arcOnlineDel arcfrbtn' /><input type='button' value='儲存' class='arcOnlineSave arcfrbtn arcFromHide' /><input type='button' value='取消' class='arcOnlineCancel arcfrbtn arcFromHide'/></td>");
+				self.setOnlineEditButtonClick();
 			}
 			
 		}
@@ -359,6 +360,26 @@ var gridTable = {
 			var keyid = mobj.attr('list_id'); // 取得
 			self.tdToEdit($(this), data); // 開始編輯表單
 		});
+	},
+	// 在線管理按鈕點擊作業
+	setOnlineEditButtonClick : function(){
+		var self = this;
+		var obj = self.tableObj;
+		
+		obj.find('tbody .arcOnlineEdit').unbind('click').bind('click',function(){
+			if(self.onEdit===true) return false;
+			var data ={};
+			var mobj = $(this).parents('tr'); // 取得所屬行物件
+			var trIndex = obj.find('tbody tr') .index(mobj); // 列流水號
+			var tdIndex = obj.find('tbody tr').eq(trIndex).find('td').index(this); // 取得行流水號
+			var keyid = mobj.attr('list_id'); // 取得
+			
+			//self.tdToEdit($(this), data); // 開始編輯表單
+		});
+	},
+	// 開始在線編輯
+	toOnlineEdit:function(){
+		
 	},
 	// 產生編輯物件
 	tdToEdit:function(obj, data){
