@@ -5,7 +5,7 @@
 ```sh
 開發中,不定期更新
 如果任何人有想要的功能都可以連絡我
-arc.jang@gmail.com
+[ContactMe] arc.jang@gmail.com
 ```
 
 ### [TableGrid] 表格控制類
@@ -16,6 +16,8 @@ arc.jang@gmail.com
  - 可直接進行單格資料編輯
  - 可整行資料同時編輯
  - 可整頁Table同時編輯再一次儲存
+ - 可產生子GRID用來檢視母GRID清單的細節
+ - 可自訂表格上方功能表單
 	
 ### [jData] 資料控制類
 
@@ -34,3 +36,4 @@ arc.jang@gmail.com
 
  - 未開發
 
+[ContactMe]:mail:arc.jang@gmail.com
