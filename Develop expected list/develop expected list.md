@@ -36,4 +36,4 @@
 
  - 未開發
 
-[ContactMe]:mail:arc.jang@gmail.com
+[ContactMe]:mailto:arc.jang@gmail.com
