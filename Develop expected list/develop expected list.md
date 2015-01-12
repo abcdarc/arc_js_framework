@@ -6,7 +6,7 @@
 開發中,不定期更新
 如果任何人有想要的功能都可以連絡我
 ```
-[ContactMe] arc.jang@gmail.com
+ContactMe : arc.jang@gmail.com
 
 ### [TableGrid] 表格控制類
 
