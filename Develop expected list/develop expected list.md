@@ -1,4 +1,5 @@
 # ARC JavaScript Develop Expected List
+==================
 
 ## 源碼開發狀況
 
@@ -30,10 +31,17 @@ ContactMe : arc.jang@gmail.com
 
 ### [jForm] 控制類
 
- - 未開發
+ - 可新增基本HTML form 物件
+ - 可新增AutoCompany
+ - 可新增DataPicker
+ - 可新增TimePicker
+ - NumnerText
+ - 欄位提示文字功能
+ - Select
+ - 
  
 ### [jTab] 控制類
 
- - 未開發
+ - 未確認
 
 [ContactMe]:mailto:arc.jang@gmail.com
