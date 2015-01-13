@@ -114,7 +114,7 @@
 	});
 	</script>
 <style class="arc_dataGrid__">
-body{margin:50px;}
+body{margin:50px;font-size:14px;}
 /*最外層 - 導角*/
 #arc_dataGrid{border:1px solid #ccc;border-radius:5px;overflow:hidden;}
 _#arc_dataGrid tr:first-child th:first-child{border-top-left-radius:3px;overflow:hidden;}
@@ -157,12 +157,34 @@ _#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f3f3f3;}
 /* 隱藏內容 */
 #arc_dataGrid .hide{display:none;}
 #arc_dataGrid input[type=text]{border:1px solid #efefef;border-radius:2px;padding:5px;width:90%;}
-.arcfrbtn{border-radius:3px;margin:0 5px 0 0;padding:3px;border:1px solid #999;}
+
+.arcfrbtn{border-radius:3px;margin:0 5px 0 0;padding:3px;border:1px solid #999;display:inline-block;cursor:pointer;background:#efefef url(images/sbk.jpg) 10px -10px repeat-x;}
+.arcfrbtn:hover{background:#ddd;}
 .arcFromHide{display:none;}
+
+.arcDialog {display:none;border-radius:5px;_border:1px solid #efefef;box-shadow:0px 0px 3px rgba(20%,20%,20%,0.2); position:absolute;z-index:0;left:50%;top:50%;margin-left:-300px;margin-top:-100px;padding:2px;background:#fff;width:300px;min-width:300px;}
+.arcDialogCloseBt {position:absolute;right:5px;cursor:pointer;}
+.arcDialogHead {text-align:left;padding:5px;background:#f1f1f1 url(images/sbk.jpg) 10px -20px repeat-x;margin-bottom:10px;}
+.arcDialogBody {padding:0 20px 0 20px;}
+.arcDialogBody div {margin:5px 0 5px 0;}
+.arcDialog label {width:30%;min-width:80px;max-width:150px;display:inline-block;padding:0 0 0 5px;}
+.arcDialog input {width:60%;border-radius:2px;border:1px solid #efefef;padding:5px;}
+.arcDialogFoot{text-align:center;padding:5px 0 5px 0;margin-top:10px;}
+
 </style>
+
 
 </head>
 <body>
+	<div class='arcDialog'>
+		<div class='arcDialogHead'>視窗標題<span class='arcDialogCloseBt'>x</span></div>
+		<div class='arcDialogBody'>
+			<div><label>姓名</label><input type='text' name='name' class='name' size='2' /></div>
+			<div><label>EMAIL</label><input type='text' name='email' class='email' /></div>
+		</div>
+		<div class='arcDialogFoot'><div class='arcfrbtn'>確認</div><div class='arcfrbtn'>取消</div></div>
+	</div>
+
 	<h2>直接編輯表格</h2>
 	<div id='A' style='width:800px;margin-bottom:30px;'>
 	
