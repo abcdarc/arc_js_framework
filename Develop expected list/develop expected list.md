@@ -42,6 +42,15 @@ ContactMe : arc.jang@gmail.com
  
 ### [jTab] 控制類
 
- - 未確認
+ - 可載入指定內容
+ - 可動態產生新tab
+
+### [jLayout] 控制類
+
+ - 可指定內容項目
+ - 
+ - 
+ 
+ 
 
 [ContactMe]:mailto:arc.jang@gmail.com
