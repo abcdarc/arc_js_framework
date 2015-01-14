@@ -1,5 +1,5 @@
 // 測式系統執行時間類 ----------------------------------------------------------------------------------------------------------------------------------
-var getRunTime = {
+var getRunTime = getRunTime || {
 	start:0,
 	end:0,
 	allTime:0,
@@ -27,7 +27,5 @@ var getRunTime = {
 		this.Time=0;
 	}
 };
-var jTest  = function(set){
-	//this.init(set);
-};
+var jTest  =  jTest || function(set){};
 jTest.prototype = getRunTime;

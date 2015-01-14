@@ -1,7 +1,6 @@
 
 // 表格控制類 ----------------------------------------------------------------------------------------------------------------------------------
-var gridTable = gridTable || {};
-gridTable = {
+var gridTable = gridTable || {
 	test:{}, // 繼承-程式執行時間類
 	tData:{}, // 繼承-資料控管類
 	tableObj:{}, // 指定table物件
@@ -548,8 +547,7 @@ gridTable = {
 		//if($('head style[class=arc_dataGrid]').text()=='' || $('head style[class=arc_dataGrid]')==undefined) $('head').prepend(defaultStyle);
 	}
 };
-var tableGrid = tableGrid || {};
-tableGrid = function(set){
+var tableGrid = tableGrid || function(set){
 	this.init(set);
 };
 tableGrid.prototype = gridTable;

@@ -1,5 +1,5 @@
 // 資料控制類 ----------------------------------------------------------------------------------------------------------------------------------
-var jsData = {
+var jsData = jsData || {
 	totalRow:1, // 全部資料筆數
 	pageShowNb:20, // 每頁顯示多少筆資料
 	totalPage:1, // 全部頁數
@@ -205,7 +205,7 @@ var jsData = {
 		
 	}
 };
-var jData = function(set){
+var jData = jData || function(set){
 	this.init(set);
 };
 jData.prototype = jsData; 
