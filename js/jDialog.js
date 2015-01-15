@@ -142,7 +142,9 @@ var jsDialog =  jsDialog || {
 			self.close();
 		});
 		
-		obj.find('.arcDialogFoot .arcfrbtn').each();
+		obj.find('.arcDialogFoot .arcfrbtn').each(function(){
+			
+		});
 		
 	},
 	// 設定關閉狀態 - 並執行
