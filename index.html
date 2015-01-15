@@ -5,6 +5,7 @@
 	<title>arc_Jquery_FrameWork</title>
 	<script src="js/jquery-1.11.2.min.js"></script> 
 	<script src="js/tableGrid.js"></script> 
+	<script src="js/jDialog.js"></script> 
 	<script src="data/tableData.js"></script> 
 	<script>
 		
@@ -12,7 +13,7 @@
 		
 	//tableData = [];
 	$(function(){
-		/**/
+		
 		var table = new tableGrid({
 			obj:$('#A'),//$('body'), // 指定容器
 			test:true,
@@ -108,8 +109,17 @@
 				}
 			}
 		});
-		//alert(table2.obj.attr('id'));
-		//alert('run');
+		
+		// 產生視窗物件
+		var dialog1 = new jDialog({
+			obj:'#dialog',
+			width:'600px',
+			height:'400px',
+			title:'textDialog',
+			close:false,
+			button:true, // 取預設按鈕 : 如果沒設定為undefined
+			
+		});
 		
 	});
 	</script>
@@ -176,6 +186,7 @@ _#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f3f3f3;}
 
 </head>
 <body>
+	<div id='dialog'><span style='text-align:center;'>TEST message</span></div>
 	<div class='arcDialog'>
 		<div class='arcDialogHead'>視窗標題<span class='arcDialogCloseBt'>x</span></div>
 		<div class='arcDialogBody'>
