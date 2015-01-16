@@ -39,7 +39,7 @@ var jsDialog =  jsDialog || {
 		}
 	},
 	button:false, // 導入按鈕
-	// 初始設定
+	// 初始設定 test - update
 	init:function(set){
 		
 		var self = this;
