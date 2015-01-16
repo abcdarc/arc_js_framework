@@ -8,7 +8,7 @@ var jsDialog =  jsDialog || {
 		'class':'.'
 	},
 	setting:{ // 基本設定
-		title: '',
+		title: '　',
 		width: '300px',
 		height: '200px',
 		x:0,
@@ -17,6 +17,8 @@ var jsDialog =  jsDialog || {
 	isclose:true, // 是否關閉
 	jData:{}, // 載入資料
 	html:{}, // 內容
+	modal:false, // 是否顯示背景網
+	isCreate:false, // 是否已建立過
 	defaultButton:{ // 預設按鈕 : 允許值為
 		'submit':{
 			value:'確認',
@@ -52,6 +54,12 @@ var jsDialog =  jsDialog || {
 			self.objName = self.dialogObj.attr(self.objType);
 		}
 		
+		// 設定背景網屏
+		if(set.modal!=undefined)
+		{
+			self.modal = set.modal;
+		}
+		
 		// 設定寬
 		if(set.width!=undefined && set.width!='')
 		{
@@ -67,13 +75,13 @@ var jsDialog =  jsDialog || {
 		// 設定視窗標題
 		if(set.title!=undefined && set.title!='')
 		{
-			self.title = set.title;
+			self.setting.title = set.title;
 		}
 		
 		// 設定視窗標題 - 依物件tag
 		if(self.dialogObj.prop('title')!=undefined && self.dialogObj.prop('title')!='')
 		{
-			self.title = self.dialogObj.prop('title');
+			self.title = self.dialogObj.prop('titleB');
 		}
 		
 		if(set.button!=undefined )
@@ -96,39 +104,48 @@ var jsDialog =  jsDialog || {
 		var self = this;
 		var obj = self.dialogObj;
 		
-		self.html = obj.html(); // 取出指定物件原有html
-		/**/
-		// 產生物件
-		var head = "<div class='arcDialogHead'>　"+self.setting.title+"<span class='arcDialogCloseBt'>x</span></div>";
-		var body="<div class='arcDialogBody'>"+self.html+"</div>"; // 內容列
-		var footer = "<div class='arcDialogFoot'></div>"; // 下方按鈕列
+		// 如果未建立
+		if(!self.isCreate)
+		{
+			self.html = obj.html(); // 取出指定物件原有html
+			
+			// 產生物件
+			var modal = '';
+			var head = "<div class='arcDialogHead'>"+self.setting.title+"<span class='arcDialogCloseBt'>x</span></div>";
+			var body="<div class='arcDialogBody'>"+self.html+"</div>"; // 內容列
+			var footer = "<div class='arcDialogFoot'></div>"; // 下方按鈕列
+			
+			if(self.modal) modal="<div class='arcModal'></div>"; // 如果有設定背景網屏
+			
+			// 取出class tag 值
+			var classValue = "class='";
+			if(self.objType=='class') classValue+=self.objName;
+			classValue+=" arcDialog'";
+			
+			// 取出id tag 值
+			var idValue = "id='";
+			if(self.objType=='id') idValue+=self.objName;
+			idValue+="'";
+			
+			var html = modal+"<div "+classValue+" "+idValue+">"+head+body+footer+"</div>";
+			
+			obj.after(html); // 產生html
+			
+			obj.remove(); // 移除原物件
+			
+			// 產生新物件
+			obj = self.dialogObj = $(self.objTypeList[self.objType]+self.objName);
 		
-		// 取出class tag 值
-		var classValue = "class='";
-		if(self.objType=='class') classValue+=self.objName;
-		classValue+=" arcDialog'";
+			// 設定關閉按鈕動作
+			obj.find('.arcDialogCloseBt').unbind('click').bind('click', function(){
+				self.close();
+			});
+			
+			self.isCreate=true; // 設定為已建立
+		}
 		
-		// 取出id tag 值
-		var idValue = "id='";
-		if(self.objType=='id') idValue+=self.objName;
-		idValue+="'";
-		
-		var html = "<div "+classValue+" "+idValue+">"+head+body+footer+"</div>";
-		
-		obj.after(html); // 產生html
-		
-		obj.remove(); // 移除原物件
-		
-		// 產生新物件
-		obj = self.dialogObj = $(self.objTypeList[self.objType]+self.objName);
-		
-		// 校正視窗位置
+		// 校正視窗位置 : 置中
 		obj.attr('style',"margin: -"+(obj.outerHeight()/2)+"px 0 0 -"+(obj.outerWidth()/2)+"px;");
-		
-		// 設定關閉按鈕動作
-		obj.find('.arcDialogCloseBt').unbind('click').bind('click', function(){
-			self.close();
-		});
 		
 		// 如果有設定按鈕
 		if(self.button!==false)
@@ -150,9 +167,17 @@ var jsDialog =  jsDialog || {
 				});
 			}
 		}
+		else
+		{
+			obj.find('.arcDialogFoot').html('');
+		}
 		
 		// 
 		
+	},
+	// 變更內容
+	changeHtml:function(html){
+	
 	},
 	// 設定關閉狀態 - 並執行
 	setClose:function(close_value){
@@ -167,17 +192,33 @@ var jsDialog =  jsDialog || {
 		self.display();
 	},
 	// 顯示視窗
-	show:function(){
+	show:function(html){
 		var self = this;
 		self.isclose = false;
-		self.display();
+		if(html==undefined)
+		{
+			self.display();
+		}
+		else
+		{
+			self.changeHtml(html);
+			self.display();
+		}
 	},
 	// 關閉視窗
 	display:function(){
 		var self = this;
 		
-		if(self.isclose) self.dialogObj.hide();
-		else self.dialogObj.show();
+		if(self.isclose)
+		{
+			self.dialogObj.hide();
+			if(self.modal) $('.arcModal').hide();
+		}
+		else
+		{
+			self.dialogObj.show();
+			if(self.modal) $('.arcModal').show();
+		}
 	}
 };
 var jDialog = jDialog || function(set){
