@@ -117,8 +117,11 @@
 			height:'400px',
 			title:'textDialog',
 			close:false,
-			button:true, // 取預設按鈕 : 如果沒設定為undefined
-			
+			button:true // 取預設按鈕 : 如果沒設定為undefined
+		});
+		
+		$('.show_dialog').click(function(){
+			dialog1.show();
 		});
 		
 	});
@@ -186,25 +189,14 @@ _#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f3f3f3;}
 
 </head>
 <body>
+	<input type='button' class='show_dialog' value='Show Dialog'/>
 	<div id='dialog'><span style='text-align:center;'>TEST message</span></div>
-	<div class='arcDialog'>
-		<div class='arcDialogHead'>視窗標題<span class='arcDialogCloseBt'>x</span></div>
-		<div class='arcDialogBody'>
-			<div><label>姓名</label><input type='text' name='name' class='name' size='2' /></div>
-			<div><label>EMAIL</label><input type='text' name='email' class='email' /></div>
-		</div>
-		<div class='arcDialogFoot'><div class='arcfrbtn'>確認</div><div class='arcfrbtn'>取消</div></div>
-	</div>
 
 	<h2>直接編輯表格</h2>
-	<div id='A' style='width:800px;margin-bottom:30px;'>
-	
-	</div>
+	<div id='A' style='width:800px;margin-bottom:30px;'></div>
 	
 	<h2>編輯表格行</h2>
-	<div id='B' style='width:1200px;margin-bottom:30px;'>
-	
-	</div>
+	<div id='B' style='width:1200px;margin-bottom:30px;'></div>
 	
 	<h2>TABLE直接套用樣式並翻頁</h2>
 	<table id='onlyTable'>
