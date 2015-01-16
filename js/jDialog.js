@@ -155,7 +155,7 @@ var jsDialog =  jsDialog || {
 			// 設定主物件呎吋
 			obj.attr('style',"width:"+self.setting.width+";height:"+self.setting.height+";");
 			var headHeight = obj.find('.arcDialogHead').outerHeight();
-			var footHeight = obj.find('.arcDialogFoot').outerHeight();
+			var footHeight = obj.find('.arcDialogFoot').outerHeight(); 
 			var setHeight = obj.outerHeight() - headHeight - footHeight - 70;
 			
 			obj.find('.arcDialogBody').attr('style',"height:"+setHeight+"px;");
