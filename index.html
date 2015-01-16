@@ -26,7 +26,7 @@
 				totalRow: tableData.length, // 設定全部資料筆數
 				// 取出資料表名稱
 				getList:{
-					id:{edtype:'hidden',type:'number',edtable:false,view:false},
+					id:{edtype:'hidden', type:'number', edtable:false, view:false},
 					name:{edtype:'text',type:'string'},
 					email:{edtype:'text',type:'string',validation: { required: true}},
 					tel:{edtype:'text',type:'string'},
@@ -112,16 +112,21 @@
 		
 		// 產生視窗物件
 		var dialog1 = new jDialog({
-			obj:'#dialog',
-			width:'600px',
-			height:'400px',
-			title:'textDialog',
-			close:false,
+			obj:'#dialog', // 指定物件
+			width:'600px', // 指定寬度
+			height:'400px', // 指定高度
+			title:'測式用視窗', // 指定標題
+			modal:true, // 是否有網屏
+			//close:false, // 預設為關閉
 			button:true // 取預設按鈕 : 如果沒設定為undefined
 		});
 		
+		//alert($.type({}));
 		$('.show_dialog').click(function(){
-			dialog1.show();
+			var message = '';
+			message = $('.change_message').val();
+			if(message=='') dialog1.show();
+			else dialog1.show(message);
 		});
 		
 	});
@@ -177,19 +182,19 @@ _#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f3f3f3;}
 
 .arcDialog {display:none;border-radius:5px;_border:1px solid #efefef;box-shadow:0px 0px 3px rgba(20%,20%,20%,0.2); position:absolute;z-index:0;left:50%;top:50%;margin-left:-300px;margin-top:-100px;padding:2px;background:#fff;width:300px;min-width:300px;}
 .arcDialogCloseBt {position:absolute;right:5px;cursor:pointer;}
-.arcDialogHead {text-align:left;padding:5px;background:#f1f1f1 url(images/sbk.jpg) 10px -20px repeat-x;margin-bottom:10px;}
+.arcDialogHead {text-align:left;padding:5px;background:#f1f1f1 url(images/sbk.jpg) 10px -20px repeat-x;margin-bottom:10px;font-weight:bold;color:#333;}
 .arcDialogBody {padding:0 20px 0 20px;}
 .arcDialogBody div {margin:5px 0 5px 0;}
 .arcDialog label {width:30%;min-width:80px;max-width:150px;display:inline-block;padding:0 0 0 5px;}
 .arcDialog input {width:60%;border-radius:2px;border:1px solid #efefef;padding:5px;}
 .arcDialogFoot{text-align:center;padding:5px 0 5px 0;margin-top:10px;}
-
+.arcModal{display:none; width:100%; height:100%; position:fixed;background:rgba(200,200,200,0.5);left:0;top:0;}
 </style>
 
 
 </head>
 <body>
-	<input type='button' class='show_dialog' value='Show Dialog'/>
+	<input type='text' class='change_message' value=''><input type='button' class='show_dialog' value='Show Dialog'/>
 	<div id='dialog'><span style='text-align:center;'>TEST message</span></div>
 
 	<h2>直接編輯表格</h2>
