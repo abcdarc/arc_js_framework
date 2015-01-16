@@ -121,13 +121,23 @@
 			button:true // 取預設按鈕 : 如果沒設定為undefined
 		});
 		
-		//alert($.type({}));
 		$('.show_dialog').click(function(){
 			var message = '';
 			message = $('.change_message').val();
 			if(message=='') dialog1.show();
 			else dialog1.show(message);
 		});
+		
+		$('.show_dialog_object').click(function(){
+			var newSetting = {
+				width:'800px', // 指定寬度
+				height:'600px', // 指定高度
+				title:'測式物件視窗', // 指定標題
+				html:"Run it is Object."
+			};
+			dialog1.show(newSetting);
+		});
+		
 		
 	});
 	</script>
@@ -194,7 +204,9 @@ _#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f3f3f3;}
 
 </head>
 <body>
-	<input type='text' class='change_message' value=''><input type='button' class='show_dialog' value='Show Dialog'/>
+	<input type='text' class='change_message' value=''>
+	<input type='button' class='show_dialog' value='Show Dialog'/>
+	<input type='button' class='show_dialog_object' value='Show Dialog Object'/>
 	<div id='dialog'><span style='text-align:center;'>TEST message</span></div>
 
 	<h2>直接編輯表格</h2>
