@@ -16,7 +16,7 @@ var jsDialog =  jsDialog || {
 	},
 	isclose:true, // 是否關閉
 	jData:{}, // 載入資料
-	html:{}, // 內容
+	html:undefined, // 內容
 	modal:false, // 是否顯示背景網 
 	isCreate:false, // 是否已建立過 
 	parentTagName:'', // 取出所屬物件階層 
@@ -67,13 +67,13 @@ var jsDialog =  jsDialog || {
 		// 設定寬
 		if(set.width!=undefined && set.width!='')
 		{
-			self.width = set.width;
+			self.setting.width = set.width;
 		}
 		
 		// 設定高
 		if(set.height!=undefined && set.height!='')
 		{
-			self.height = set.height;
+			self.setting.height = set.height;
 		}
 		
 		// 設定視窗標題
@@ -91,7 +91,7 @@ var jsDialog =  jsDialog || {
 		// 設定視窗標題
 		if(set.html!=undefined && set.html!='')
 		{
-			self.setting.html = set.html;
+			self.html = set.html;
 		}
 		
 		// 設定按鈕
@@ -111,14 +111,14 @@ var jsDialog =  jsDialog || {
 		
 	},
 	// 建立視窗
-	createDialog:function(html){
+	createDialog:function(){
 		var self = this;
 		var obj = self.dialogObj;
 		
 		// 如果未建立 : 
 		if(self.isCreate) return false;
 		
-			self.html = obj.html(); // 取出指定物件原有html
+			if(self.html==undefined) self.html = obj.html(); // 取出指定物件原有html
 			
 			// 取目前所在階層 : ##########
 			self.parentTagName = obj.parent()[0].tagName.toLowerCase();
@@ -151,7 +151,15 @@ var jsDialog =  jsDialog || {
 			
 			// 產生新物件
 			obj = self.dialogObj = $(self.objTypeList[self.objType]+self.objName);
-		
+			
+			// 設定主物件呎吋
+			obj.attr('style',"width:"+self.setting.width+";height:"+self.setting.height+";");
+			var headHeight = obj.find('.arcDialogHead').outerHeight();
+			var footHeight = obj.find('.arcDialogFoot').outerHeight();
+			var setHeight = obj.outerHeight() - headHeight - footHeight - 70;
+			
+			obj.find('.arcDialogBody').attr('style',"height:"+setHeight+"px;");
+			
 			// 設定關閉按鈕動作
 			obj.find('.arcDialogCloseBt').unbind('click').bind('click', function(){
 				self.close();
@@ -161,7 +169,7 @@ var jsDialog =  jsDialog || {
 		
 		
 		// 校正視窗位置 : 置中
-		obj.attr('style',"margin: -"+(obj.outerHeight()/2)+"px 0 0 -"+(obj.outerWidth()/2)+"px;");
+		obj.attr('style',obj.attr('style')+"margin: -"+(obj.outerHeight()/2)+"px 0 0 -"+(obj.outerWidth()/2)+"px;");
 
 		
 		// 如果有設定按鈕
@@ -201,15 +209,13 @@ var jsDialog =  jsDialog || {
 			// 設定寬
 			if(set.width!=undefined && set.width!='')
 			{
-				self.width = set.width;
-				obj.find('.arcDialogBody').html(self.html);
+				self.setting.width = set.width;
 			}
 			
 			// 設定高
 			if(set.height!=undefined && set.height!='')
 			{
-				self.height = set.height;
-				obj.find('.arcDialogBody').html(self.html);
+				self.setting.height = set.height;
 			}
 			
 			// 設定視窗標題
@@ -221,7 +227,7 @@ var jsDialog =  jsDialog || {
 			// 設定視窗內容
 			if(set.html!=undefined && set.html!='')
 			{
-				self.setting.html = set.html;
+				self.html = set.html;
 			}
 		
 			// 設定按鈕
