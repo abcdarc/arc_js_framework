@@ -17,8 +17,10 @@ var jsDialog =  jsDialog || {
 	isclose:true, // 是否關閉
 	jData:{}, // 載入資料
 	html:{}, // 內容
-	modal:false, // 是否顯示背景網
-	isCreate:false, // 是否已建立過
+	modal:false, // 是否顯示背景網 
+	isCreate:false, // 是否已建立過 
+	parentTagName:'', // 取出所屬物件階層 
+	parentObj:{}, // 所屬物件 
 	defaultButton:{ // 預設按鈕 : 允許值為
 		'submit':{
 			value:'確認',
@@ -41,6 +43,8 @@ var jsDialog =  jsDialog || {
 	init:function(set){
 		
 		var self = this;
+		
+		if(self.isCreate) return false;
 		
 		// 指定物件不得為空
 		if(set.obj==undefined) return false;
@@ -84,6 +88,13 @@ var jsDialog =  jsDialog || {
 			self.title = self.dialogObj.prop('titleB');
 		}
 		
+		// 設定視窗標題
+		if(set.html!=undefined && set.html!='')
+		{
+			self.setting.html = set.html;
+		}
+		
+		// 設定按鈕
 		if(set.button!=undefined )
 		{
 			self.button = set.button;
@@ -100,20 +111,25 @@ var jsDialog =  jsDialog || {
 		
 	},
 	// 建立視窗
-	createDialog:function(){
+	createDialog:function(html){
 		var self = this;
 		var obj = self.dialogObj;
 		
-		// 如果未建立
-		if(!self.isCreate)
-		{
+		// 如果未建立 : 
+		if(self.isCreate) return false;
+		
 			self.html = obj.html(); // 取出指定物件原有html
 			
-			// 產生物件
+			// 取目前所在階層 : ##########
+			self.parentTagName = obj.parent()[0].tagName.toLowerCase();
+			if(self.parentTagName=='body') self.parentObj=$(self.parentTagName);
+			else self.parentObj = obj.parent();
+			
+			// 產生物件 
 			var modal = '';
 			var head = "<div class='arcDialogHead'>"+self.setting.title+"<span class='arcDialogCloseBt'>x</span></div>";
-			var body="<div class='arcDialogBody'>"+self.html+"</div>"; // 內容列
-			var footer = "<div class='arcDialogFoot'></div>"; // 下方按鈕列
+			var body="<div class='arcDialogBody'>"+self.html+"</div>"; // 內容列 
+			var footer = "<div class='arcDialogFoot'></div>"; // 下方按鈕列 
 			
 			if(self.modal) modal="<div class='arcModal'></div>"; // 如果有設定背景網屏
 			
@@ -129,7 +145,7 @@ var jsDialog =  jsDialog || {
 			
 			var html = modal+"<div "+classValue+" "+idValue+">"+head+body+footer+"</div>";
 			
-			obj.after(html); // 產生html
+			obj.after(html); // 產生html : 在目前物件後方
 			
 			obj.remove(); // 移除原物件
 			
@@ -142,10 +158,11 @@ var jsDialog =  jsDialog || {
 			});
 			
 			self.isCreate=true; // 設定為已建立
-		}
+		
 		
 		// 校正視窗位置 : 置中
 		obj.attr('style',"margin: -"+(obj.outerHeight()/2)+"px 0 0 -"+(obj.outerWidth()/2)+"px;");
+
 		
 		// 如果有設定按鈕
 		if(self.button!==false)
@@ -156,16 +173,7 @@ var jsDialog =  jsDialog || {
 				self.button = self.defaultButton; // 使用預設按鈕
 			}
 			
-			// 設定按鈕
-			for(var key in self.button)
-			{
-				var name = '';
-				name = ( self.defaultButton[key].value!=undefined && self.defaultButton[key].value!='' ) ? self.defaultButton[key].value : key ;
-				obj.find('.arcDialogFoot').append("<div class='arcfrbtn "+key+"' act='"+key+"'>"+name+"</div>");
-				obj.find('.arcDialogFoot .'+key).unbind('click').bind('click', function(){
-					self.defaultButton[$(this).attr('act')].run(self);
-				});
-			}
+			self.setButton(); // 產生按鈕 及 點擊作業 
 		}
 		else
 		{
@@ -176,8 +184,72 @@ var jsDialog =  jsDialog || {
 		
 	},
 	// 變更內容
-	changeHtml:function(html){
-	
+	reDialog:function(set){
+		var self = this;
+		var obj = self.dialogObj;
+		
+		self.isCreate = false;
+		
+		if(typeof(set)=='string')
+		{
+			self.html = set;
+			obj.find('.arcDialogBody').html(self.html);
+		}
+		
+		if(typeof(set)=='object')
+		{
+			// 設定寬
+			if(set.width!=undefined && set.width!='')
+			{
+				self.width = set.width;
+				obj.find('.arcDialogBody').html(self.html);
+			}
+			
+			// 設定高
+			if(set.height!=undefined && set.height!='')
+			{
+				self.height = set.height;
+				obj.find('.arcDialogBody').html(self.html);
+			}
+			
+			// 設定視窗標題
+			if(set.title!=undefined && set.title!='')
+			{
+				self.setting.title = set.title;
+			}
+			
+			// 設定視窗內容
+			if(set.html!=undefined && set.html!='')
+			{
+				self.setting.html = set.html;
+			}
+		
+			// 設定按鈕
+			if(set.button!=undefined )
+			{
+				self.button = set.button;
+			}
+			
+			self.createDialog();
+		}
+	},
+	// 產生按鈕 及 點擊作業
+	setButton:function(){
+		var self = this;
+		var obj = self.dialogObj;
+		
+		// 產生按鈕
+		for(var key in self.button)
+		{
+			var name = '';
+			name = ( self.defaultButton[key].value!=undefined && self.defaultButton[key].value!='' ) ? self.defaultButton[key].value : key ;
+			obj.find('.arcDialogFoot').append("<div class='arcfrbtn "+key+"' act='"+key+"'>"+name+"</div>");
+		}
+		
+		// 設定按鈕點擊作業
+		obj.find('.arcDialogFoot .arcfrbtn').unbind('click').bind('click', function(){
+			self.defaultButton[$(this).attr('act')].run(self);
+		});
 	},
 	// 設定關閉狀態 - 並執行
 	setClose:function(close_value){
@@ -192,20 +264,20 @@ var jsDialog =  jsDialog || {
 		self.display();
 	},
 	// 顯示視窗
-	show:function(html){
+	show:function(set){
 		var self = this;
 		self.isclose = false;
-		if(html==undefined)
+		if(set==undefined)
 		{
 			self.display();
 		}
 		else
 		{
-			self.changeHtml(html);
+			self.reDialog(set);
 			self.display();
 		}
 	},
-	// 關閉視窗
+	// 顯示/關閉 視窗
 	display:function(){
 		var self = this;
 		
