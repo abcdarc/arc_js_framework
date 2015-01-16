@@ -20,16 +20,16 @@ var jsDialog =  jsDialog || {
 	defaultButton:{ // 預設按鈕 : 允許值為
 		'submit':{
 			value:'確認',
-			run:function(){
+			run:function(self){
 				alert('submit');
-				this.close();
+				self.close();
 				return true;
 			}
 		},
 		'cancel':{
 			value:'取消',
-			run:function(){
-				this.close();
+			run:function(self){
+				self.close();
 				return false;
 			}
 		}
@@ -100,24 +100,8 @@ var jsDialog =  jsDialog || {
 		/**/
 		// 產生物件
 		var head = "<div class='arcDialogHead'>　"+self.setting.title+"<span class='arcDialogCloseBt'>x</span></div>";
-		var body="<div class='arcDialogBody'>"+self.html+"</div>";
-		var footer = '';
-		if(self.button!==false)
-		{
-			if(self.button===true)
-			{
-				//footer="<div class='arcDialogFoot'><div class='arcfrbtn'>確認</div><div class='arcfrbtn'>取消</div></div>";
-				footer="<div class='arcDialogFoot'>";
-				self.button = self.defaultButton; // 使用預設按鈕
-				for(var key in self.button)
-				{
-					var name = '';
-					name = (self.defaultButton[key].value!=undefined && self.defaultButton[key].value!='') ? self.defaultButton[key].value : key ;
-					footer += "<div class='arcfrbtn "+key+"'>"+name+"</div>";
-				}
-				footer+="</div>";
-			}
-		}
+		var body="<div class='arcDialogBody'>"+self.html+"</div>"; // 內容列
+		var footer = "<div class='arcDialogFoot'></div>"; // 下方按鈕列
 		
 		// 取出class tag 值
 		var classValue = "class='";
@@ -138,13 +122,36 @@ var jsDialog =  jsDialog || {
 		// 產生新物件
 		obj = self.dialogObj = $(self.objTypeList[self.objType]+self.objName);
 		
+		// 校正視窗位置
+		obj.attr('style',"margin: -"+(obj.outerHeight()/2)+"px 0 0 -"+(obj.outerWidth()/2)+"px;");
+		
+		// 設定關閉按鈕動作
 		obj.find('.arcDialogCloseBt').unbind('click').bind('click', function(){
 			self.close();
 		});
 		
-		obj.find('.arcDialogFoot .arcfrbtn').each(function(){
+		// 如果有設定按鈕
+		if(self.button!==false)
+		{
+			// 取出預設按鈕
+			if(self.button===true)
+			{
+				self.button = self.defaultButton; // 使用預設按鈕
+			}
 			
-		});
+			// 設定按鈕
+			for(var key in self.button)
+			{
+				var name = '';
+				name = ( self.defaultButton[key].value!=undefined && self.defaultButton[key].value!='' ) ? self.defaultButton[key].value : key ;
+				obj.find('.arcDialogFoot').append("<div class='arcfrbtn "+key+"' act='"+key+"'>"+name+"</div>");
+				obj.find('.arcDialogFoot .'+key).unbind('click').bind('click', function(){
+					self.defaultButton[$(this).attr('act')].run(self);
+				});
+			}
+		}
+		
+		// 
 		
 	},
 	// 設定關閉狀態 - 並執行
