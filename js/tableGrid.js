@@ -23,8 +23,9 @@ var gridTable = gridTable || {
 		var self = this;
 		var stringObj = false;
 		
-		self.importJs("js/jTest.js"); // 載入執行時間測式JS
-		self.importJs("js/jData.js"); // 載入資料處理類JS
+		self.importJs("js/jTest.js")	// 載入執行時間測式JS
+		self.importJs("js/jDialog.js");	// 載入跳出視窗類JS
+		self.importJs("js/jData.js");	// 載入資料處理類JS
 		
 		self.test = new jTest(); // 載入
 		
