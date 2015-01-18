@@ -5,7 +5,6 @@
 	<title>arc_Jquery_FrameWork</title>
 	<script src="js/jquery-1.11.2.min.js"></script> 
 	<script src="js/tableGrid.js"></script> 
-	<script src="js/jDialog.js"></script> 
 	<script src="data/tableData.js"></script> 
 	<link href='css/arcFromeWork.css' type='text/css' rel='stylesheet' />
 	
@@ -28,7 +27,13 @@
 				totalRow: tableData.length, // 設定全部資料筆數
 				// 取出資料表名稱
 				getList:{
-					id:{edtype:'hidden', type:'number', edtable:false, view:false},
+					id:{
+						edtype:'hidden', // 編輯欄位模式
+						type:'number', // 欄位格式
+						edtable:false, // 是否可編輯該欄位
+						view:false, // 是否顯示該欄位
+						validation: { required: true} // 表單驗證
+					},
 					name:{edtype:'text',type:'string'},
 					email:{edtype:'text',type:'string',validation: { required: true}},
 					tel:{edtype:'text',type:'string'},
@@ -45,7 +50,7 @@
 				mobile:{title:'手機',width:'150px'},
 				old:{title:'年齡',width:'80px'}
 			},
-			edtable:true
+			edtable:true // 表單編輯模式 : 預設為 flase
 		});
 		
 		var table2 = new tableGrid({
