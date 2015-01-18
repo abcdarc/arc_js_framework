@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>arc_Jquery_FrameWork</title>
+	<script src="js/jquery-1.11.2.min.js"></script> 
+	<script src="js/jDialog.js"></script> 
+	<link href='css/arcFromeWork.css' type='text/css' rel='stylesheet' />
+	
+	<script>
+		
+	// 外部資料
+		
+	//tableData = [];
+	$(function(){
+		
+		var diaSetting = {
+			obj:'#dialog', // 指定物件
+			width:'400px', // 指定寬度
+			height:'150px', // 指定高度
+			title:'測式用視窗', // 指定標題
+			modal:true, // 是否有網屏
+			//close:false, // 預設為關閉
+			button:true // 取預設按鈕 : 如果沒設定為undefined
+		};
+		
+		// 產生視窗物件
+		var dialog1 = new jDialog(diaSetting);
+		
+		$('.show_dialog').click(function(){
+			var message = '';
+			message = $('.change_message').val();
+			if(message=='') dialog1.show();
+			else dialog1.show(message);
+		});
+		
+		$('.show_dialog2').click(function(){
+			var message = '';
+			var d2 = diaSetting;
+			message = $('.change_message').val();
+			
+			d2.html = (message=='') ? d2.html : message;
+			dialog1.show(d2);
+		});
+		
+		// 外部function
+		function runFunction(){
+			alert('I am Run Function.');
+			dialog1.close();
+		}
+		
+		$('.show_dialog_object').click(function(){
+			var newSetting = {
+				width:'800px', // 指定寬度
+				height:'600px', // 指定高度
+				title:'測式物件視窗', // 指定標題
+				html:"Run it is Object.",
+				button:{
+					'dd':{
+						value:'確認',
+						run: runFunction
+					}
+				}
+			};
+			dialog1.show(newSetting);
+		});
+		
+		$('.show_dialog_object2').click(function(){
+			var newSetting = {
+				width:'600px', // 指定寬度
+				height:'400px', // 指定高度
+				title:'測式物件視窗2', // 指定標題
+				html:"Run it is Object @2.",
+				modal:false, // 是否有網屏
+				button:{
+					'submit':{
+						value:'確認',
+						run:function(){
+							alert('OKOK2');
+							dialog1.close();
+						}
+					},
+					'cancel':{
+						value:'取消',
+						run:function(){
+							dialog1.close();
+						}
+					}
+				}
+			};
+			dialog1.show(newSetting);
+		});
+		
+		
+	});
+	</script>
+
+
+
+</head>
+<body>
+
+	<div><a href='index.html' >back to Index</a></div>
+	
+	<input type='text' class='change_message' value=''>
+	<input type='button' class='show_dialog' value='Show Dialog'/>
+	<input type='button' class='show_dialog2' value='Show Dialog2'/>
+	<input type='button' class='show_dialog_object' value='Show Dialog Object'/>
+	<input type='button' class='show_dialog_object2' value='Show Dialog Object 2'/>
+	
+	
+	<div id='dialog'><span style='text-align:center;'>TEST message</span></div>
+	
+</body>
+</html>

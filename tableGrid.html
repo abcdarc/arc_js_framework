@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>arc_Jquery_FrameWork</title>
+	<script src="js/jquery-1.11.2.min.js"></script> 
+	<script src="js/tableGrid.js"></script> 
+	<script src="js/jDialog.js"></script> 
+	<script src="data/tableData.js"></script> 
+	<link href='css/arcFromeWork.css' type='text/css' rel='stylesheet' />
+	
+	<script>
+		
+	// 外部資料
+		
+	//tableData = [];
+	$(function(){
+		
+		var table = new tableGrid({
+			obj:$('#A'),//$('body'), // 指定容器
+			test:true,
+			// 載入資料控制
+			data:{
+				data:tableData, // 指定讀取資料
+				dataKey:'id',// 設定鍵值
+				pageShowNb : 2, // 每頁顯示筆數 : 預設為20筆
+				showPageLink : 10, // 每頁顯示翻頁連結數 : 預設為5筆 , 最多9筆 , 只會是積數
+				totalRow: tableData.length, // 設定全部資料筆數
+				// 取出資料表名稱
+				getList:{
+					id:{edtype:'hidden', type:'number', edtable:false, view:false},
+					name:{edtype:'text',type:'string'},
+					email:{edtype:'text',type:'string',validation: { required: true}},
+					tel:{edtype:'text',type:'string'},
+					mobile:{edtype:'text',type:'string',validation: { required: true}},
+					old:{edtype:'text',type:'number'}
+				}
+			},
+			// 
+			columns:{
+				id:{title:'編號',width:'50px'},
+				name:{title:'姓名',width:'150px'},
+				email:{title:'電子郵件',width:'250px'},
+				tel:{title:'聯絡電話',width:'150px'},
+				mobile:{title:'手機',width:'150px'},
+				old:{title:'年齡',width:'80px'}
+			},
+			edtable:true
+		});
+		
+		var table2 = new tableGrid({
+			obj:$('#B'), // 指定容器
+			test:true,
+			// 載入資料控制
+			data:{
+				data:tableData, // 指定讀取資料
+				dataKey:'id',// 設定鍵值
+				pageShowNb : 3, // 每頁顯示筆數 : 預設為20筆
+				showPageLink : 10, // 每頁顯示翻頁連結數 : 預設為5筆 , 最多9筆 , 只會是積數
+				totalRow: tableData.length, // 設定全部資料筆數
+				// 取出資料表名稱
+				getList:{
+					id:{edtype:'hidden',type:'number',edtable:false,view:false},
+					name:{edtype:'text',type:'string',edtable:false},
+					email:{edtype:'text',type:'string',validation: { required: true}},
+					tel:{edtype:'text',type:'string'},
+					mobile:{edtype:'text',type:'string',validation: { required: true}},
+					old:{edtype:'text',type:'number'}
+				}
+			},
+			columns:{
+				id:{title:'編號'},
+				name:{title:'姓名',width:'150px'},
+				email:{title:'電子郵件',width:'250px'},
+				tel:{title:'聯絡電話',width:'150px'},
+				mobile:{title:'手機',width:'150px'},
+				old:{title:'年齡',width:'80px'}
+			}
+			,edtable:'inlineEdit'
+			
+		});
+		
+		var table3 = new tableGrid({
+			obj:"#onlyTable", // 指定容器
+			test:true,
+			// 載入資料控制
+			data:{
+				pageShowNb : 4, // 每頁顯示筆數 : 預設為20筆
+				showPageLink : 10, // 每頁顯示翻頁連結數 : 預設為5筆 , 最多9筆 , 只會是積數
+				// 取出資料表名稱
+				getList:{
+					id:{edtype:'hidden',type:'number',edtable:false,view:false},
+					prod_name:{edtype:'text',type:'string'},
+					price:{edtype:'text',type:'number',validation: { required: true}}
+				}
+			}
+		});
+		
+		var table4 = new tableGrid({
+			obj:"#onlyTable2", // 指定容器
+			test:true,
+			// 載入資料控制
+			data:{
+				pageShowNb : 5, // 每頁顯示筆數 : 預設為20筆
+				showPageLink : 10, // 每頁顯示翻頁連結數 : 預設為5筆 , 最多9筆 , 只會是積數
+				// 取出資料表名稱
+				getList:{
+					id:{edtype:'hidden',type:'number',edtable:false,view:false},
+					prod_name:{edtype:'text',type:'string'},
+					price:{edtype:'text',type:'number',validation: { required: true}}
+				}
+			}
+		});
+		
+		
+	});
+	</script>
+
+
+</head>
+<body>
+	
+	<div><a href='index.html' >back to Index</a></div>
+	
+	<h2>直接編輯表格</h2>
+	<div id='A' style='width:800px;margin-bottom:30px;'></div>
+	
+	<h2>編輯表格行</h2>
+	<div id='B' style='width:1200px;margin-bottom:30px;'></div>
+	
+	<h2>TABLE直接套用樣式並翻頁</h2>
+	<table id='onlyTable'>
+		<thead>
+		<tr>
+			<th tableName='productId'>ID</th>
+			<th tableName='productName'>商品名稱</th>
+			<th tableName='ProductPrice'>價格</th>
+			<th >管理</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>1</td>
+			<td>測式商品1</td>
+			<td>100</td>
+			<td><input name='edit' type='button' value='編輯' /><input name='del' type='button' value='刪除' /></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>測式商品2</td>
+			<td>100</td>
+			<td><input name='edit' type='button' value='編輯' /><input name='del' type='button' value='刪除' /></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>測式商品3</td>
+			<td>100</td>
+			<td><input name='edit' type='button' value='編輯' /><input name='del' type='button' value='刪除' /></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>測式商品4</td>
+			<td>100</td>
+			<td><input name='edit' type='button' value='編輯' /><input name='del' type='button' value='刪除' /></td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>測式商品5</td>
+			<td>100</td>
+			<td><input name='edit' type='button' value='編輯' /><input name='del' type='button' value='刪除' /></td>
+		</tr>
+		</tbody>
+	</table>
+	
+	<h2>TABLE直接套用樣式</h2>
+	<table id='onlyTable2'>
+	
+		<tr>
+			<th tableName='productId'>ID</th>
+			<th tableName='productName'>商品名稱</th>
+			<th tableName='ProductPrice'>價格</th>
+			<th >管理</th>
+		</tr>
+		
+		<tr>
+			<td>1</td>
+			<td>測式商品1</td>
+			<td>100</td>
+			<td><input name='edit' type='button' value='編輯' /><input name='del' type='button' value='刪除' /></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>測式商品2</td>
+			<td>100</td>
+			<td><input name='edit' type='button' value='編輯' /><input name='del' type='button' value='刪除' /></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>測式商品3</td>
+			<td>100</td>
+			<td><input name='edit' type='button' value='編輯' /><input name='del' type='button' value='刪除' /></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>測式商品4</td>
+			<td>100</td>
+			<td><input name='edit' type='button' value='編輯' /><input name='del' type='button' value='刪除' /></td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>測式商品5</td>
+			<td>100</td>
+			<td><input name='edit' type='button' value='編輯' /><input name='del' type='button' value='刪除' /></td>
+		</tr>
+		
+	</table>
+	
+</body>
+</html>
