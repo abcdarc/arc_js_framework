@@ -131,7 +131,7 @@ var jsDialog =  jsDialog || {
 			var body="<div class='arcDialogBody'>"+self.html+"</div>"; // 內容列 
 			var footer = "<div class='arcDialogFoot'></div>"; // 下方按鈕列 
 			
-			if(self.modal) modal="<div class='arcModal'></div>"; // 如果有設定背景網屏
+			if(self.modal && $('.arcModal').length==0) modal="<div class='arcModal'></div>"; // 如果有設定背景網屏
 			
 			// 取出class tag 值
 			var classValue = "class='";
@@ -175,12 +175,17 @@ var jsDialog =  jsDialog || {
 		// 如果有設定按鈕
 		if(self.button!==false)
 		{
+			obj.find('.arcDialogFoot').html('');
 			// 取出預設按鈕
 			if(self.button===true)
 			{
 				self.button = self.defaultButton; // 使用預設按鈕
 			}
-			
+			/*
+			for(var key in self.button)
+			{
+				alert(key);
+			}*/
 			self.setButton(); // 產生按鈕 及 點擊作業 
 		}
 		else
@@ -248,13 +253,13 @@ var jsDialog =  jsDialog || {
 		for(var key in self.button)
 		{
 			var name = '';
-			name = ( self.defaultButton[key].value!=undefined && self.defaultButton[key].value!='' ) ? self.defaultButton[key].value : key ;
+			name = ( self.button[key].value!=undefined && self.button[key].value!='' ) ? self.button[key].value : key ;
 			obj.find('.arcDialogFoot').append("<div class='arcfrbtn "+key+"' act='"+key+"'>"+name+"</div>");
 		}
 		
 		// 設定按鈕點擊作業
 		obj.find('.arcDialogFoot .arcfrbtn').unbind('click').bind('click', function(){
-			self.defaultButton[$(this).attr('act')].run(self);
+			self.button[$(this).attr('act')].run(self);
 		});
 	},
 	// 設定關閉狀態 - 並執行

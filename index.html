@@ -127,13 +127,56 @@
 			if(message=='') dialog1.show();
 			else dialog1.show(message);
 		});
+		var sx = 'START';
+		
+		function runFunction(){
+			alert('I am Run Function.');
+			newSetting.close();
+		}
 		
 		$('.show_dialog_object').click(function(){
 			var newSetting = {
 				width:'800px', // 指定寬度
 				height:'600px', // 指定高度
 				title:'測式物件視窗', // 指定標題
-				html:"Run it is Object."
+				html:"Run it is Object.",
+				button:runFunction,
+				button:{
+					'dd':{
+						value:'確認',
+						run:function(){
+							alert('OKOK');
+							dialog1.close();
+						}
+					}
+				}
+			};
+			dialog1.show(newSetting);
+		});
+		
+		$('.show_dialog_object2').click(function(){
+			var newSetting = {
+				width:'600px', // 指定寬度
+				height:'400px', // 指定高度
+				title:'測式物件視窗2', // 指定標題
+				html:"Run it is Object @2.",
+				button:runFunction,
+				modal:false, // 是否有網屏
+				button:{
+					'submit':{
+						value:'確認',
+						run:function(){
+							alert('OKOK2');
+							dialog1.close();
+						}
+					},
+					'cancel':{
+						value:'取消',
+						run:function(){
+							dialog1.close();
+						}
+					}
+				}
 			};
 			dialog1.show(newSetting);
 		});
@@ -207,6 +250,7 @@ _#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f3f3f3;}
 	<input type='text' class='change_message' value=''>
 	<input type='button' class='show_dialog' value='Show Dialog'/>
 	<input type='button' class='show_dialog_object' value='Show Dialog Object'/>
+	<input type='button' class='show_dialog_object2' value='Show Dialog Object 2'/>
 	<div id='dialog'><span style='text-align:center;'>TEST message</span></div>
 
 	<h2>直接編輯表格</h2>
