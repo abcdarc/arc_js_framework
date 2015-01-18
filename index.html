@@ -110,16 +110,18 @@
 			}
 		});
 		
-		// 產生視窗物件
-		var dialog1 = new jDialog({
+		var diaSetting = {
 			obj:'#dialog', // 指定物件
-			width:'600px', // 指定寬度
-			height:'400px', // 指定高度
+			width:'400px', // 指定寬度
+			height:'150px', // 指定高度
 			title:'測式用視窗', // 指定標題
 			modal:true, // 是否有網屏
 			//close:false, // 預設為關閉
 			button:true // 取預設按鈕 : 如果沒設定為undefined
-		});
+		};
+		
+		// 產生視窗物件
+		var dialog1 = new jDialog(diaSetting);
 		
 		$('.show_dialog').click(function(){
 			var message = '';
@@ -127,7 +129,16 @@
 			if(message=='') dialog1.show();
 			else dialog1.show(message);
 		});
-		var sx = 'START';
+		
+		$('.show_dialog2').click(function(){
+			var message = '';
+			var d2 = diaSetting;
+			message = $('.change_message').val();
+			
+			d2.html = (message=='') ? d2.html : message;
+			dialog1.show(d2);
+		});
+		
 		
 		function runFunction(){
 			alert('I am Run Function.');
@@ -249,6 +260,7 @@ _#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f3f3f3;}
 <body>
 	<input type='text' class='change_message' value=''>
 	<input type='button' class='show_dialog' value='Show Dialog'/>
+	<input type='button' class='show_dialog2' value='Show Dialog2'/>
 	<input type='button' class='show_dialog_object' value='Show Dialog Object'/>
 	<input type='button' class='show_dialog_object2' value='Show Dialog Object 2'/>
 	<div id='dialog'><span style='text-align:center;'>TEST message</span></div>
