@@ -320,6 +320,7 @@ var gridTable = gridTable || {
 				}
 				// 產生編輯按鈕
 				self.tableObj.find('tbody tr').append("<td style='text-align:center;'><input type='button' value='編輯' class='arcOnlineEdit arcfrbtn' /><input type='button' value='刪除' class='arcOnlineDel arcfrbtn' /><input type='button' value='儲存' class='arcOnlineSave arcfrbtn arcFromHide' /><input type='button' value='取消' class='arcOnlineCancel arcfrbtn arcFromHide'/></td>");
+				
 				self.setOnlineEditButtonClick();
 			}
 			
@@ -361,6 +362,7 @@ var gridTable = gridTable || {
 			self.edIndex = obj.find('tbody tr') .index(mobj); // 取得目前編輯清單列流水號
 			self.edRowIndex = obj.find('tbody tr').eq(self.edIndex).find('td').index(this); // 取得行流水號
 			data.name = obj.find('thead th').eq(self.edRowIndex).attr('tableName'); // 取得資料表名稱
+			if(self.tData.getList[data.name].edtable===false) return false;
 			data.type = self.tData.getList[data.name].edtype; // 取得表單類別
 			self.edKeyId = mobj.attr('list_id'); // 取得
 			self.tdToEdit($(this), data); // 開始編輯表單
@@ -405,7 +407,9 @@ var gridTable = gridTable || {
 		obj.find('tbody .arcOnlineSave').unbind('click').bind('click',function(){
 			var savedata = self.tData.getFormValue($(this).parents('tr'));
 			// self.tData.viewObj(savedata);return false;
+			self.onSave();
 			alert('isSave'); // 先跑AJAX儲存後 - 看結果後再另外處理
+			self.endSave();
 		});
 		
 		// 刪除按鈕
@@ -491,16 +495,38 @@ var gridTable = gridTable || {
 				// 如果值變了
 				else
 				{
+					self.onSave();
 					alert('change AND save newVale='+$(this).val());
 					obj.html($(this).val());
+					self.endSave();
 				}
 			});
 		}
 		
 	},
+	// 開始編輯
+	onSave:function(){
+		alert('onSave');
+	},
 	// 結束編輯
-	endEdit:function(){
-		
+	endSave:function(){
+		alert('endSave');
+	},
+	// 開始刪除
+	onDel:function(){
+		alert('onDel');
+	},
+	// 結束刪除
+	endDel:function(){
+		alert('endDel');
+	},
+	// 開始新增
+	onAdd:function(){
+		alert('onAdd');
+	},
+	// 結束新增
+	endAdd:function(){
+		alert('endAdd');
 	},
 	// 產生表單物件name, type, value, list, tags
 	createInput:function(data){

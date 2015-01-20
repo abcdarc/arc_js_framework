@@ -11,8 +11,6 @@
 	<script>
 		
 	// 外部資料
-		
-	//tableData = [];
 	$(function(){
 		
 		var table = new tableGrid({
@@ -31,7 +29,7 @@
 						edtype:'hidden', // 編輯欄位模式
 						type:'number', // 欄位格式
 						edtable:false, // 是否可編輯該欄位
-						view:false, // 是否顯示該欄位
+						view:true, // 是否顯示該欄位
 						validation: { required: true} // 表單驗證
 					},
 					name:{edtype:'text',type:'string'},
@@ -66,7 +64,7 @@
 				// 取出資料表名稱
 				getList:{
 					id:{edtype:'hidden',type:'number',edtable:false,view:false},
-					name:{edtype:'text',type:'string',edtable:false},
+					name:{edtype:'text',type:'string'},
 					email:{edtype:'text',type:'string',validation: { required: true}},
 					tel:{edtype:'text',type:'string'},
 					mobile:{edtype:'text',type:'string',validation: { required: true}},

@@ -24,7 +24,7 @@ _#arc_dataGrid tr th:first-child, _#arc_dataGrid tr td:first-child{border-left:1
 /* 每個TR 最後一個TD TH 沒有左邊的格線 */
 #arc_dataGrid tr th:last-child, #arc_dataGrid tr td:last-child{border-right:0px solid #ccc;}
 /* TH 有下方格線 */
-#arc_dataGrid tr th{background:#eee;border-bottom:1px solid #ccc;}
+#arc_dataGrid tr th{background:#eee  url(../images/sbk.jpg) 10px -15px repeat-x;border-bottom:1px solid #ccc;}
 /* THEAD TH 連結滑鼠移置時切換底色 */
 #arc_dataGrid thead tr th:hover{color:#666;}
 /* TBODY - 最後一個TR 的TD 都有下方底線 */
