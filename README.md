@@ -1,11 +1,11 @@
 # ARC JavaScript Develop Expected List
-==================
 
 ## 源碼開發狀況
 
 ```sh
-開發中,不定期更新
-如果任何人有想要的功能都可以連絡我
+這個程式開發目的主要是[自我練習]及[自用]
+目前還在開發中,不定期會進行更新
+如果任何人有想要的功能都可以使用[下方EMAIL]連絡我
 ```
 ContactMe : arc.jang@gmail.com
 
