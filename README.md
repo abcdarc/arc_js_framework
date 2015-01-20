@@ -30,8 +30,13 @@ ContactMe : arc.jang@gmail.com
  - 可自訂資料驗證
  - 可自訂外部資料控制鍵值
  - 可取得指定DOM物件內含Form元件的資料值
+ 
+### [jDialog] 視窗類
 
-### [jForm] 控制類
+ - 可指定內容訊息
+ - 可自訂按鈕動作
+
+### [jForm] 控制類 (未開發)
 
  - 可新增基本HTML form 物件
  - 可新增AutoCompany
@@ -42,12 +47,12 @@ ContactMe : arc.jang@gmail.com
  - Select
  - 
  
-### [jTab] 控制類
+### [jTab] 控制類 (未開發)
 
  - 可載入指定內容
  - 可動態產生新tab
 
-### [jLayout] 控制類
+### [jLayout] 控制類 (未開發)
 
  - 可指定內容項目
  - 
