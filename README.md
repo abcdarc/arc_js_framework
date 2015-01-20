@@ -44,10 +44,18 @@ ContactMe : arc.jang@gmail.com
  - 可新增TimePicker
  - NumnerText
  - 欄位提示文字功能
- - Select
- - 
  
-### [jTab] 控制類 (未開發)
+### [jValidation] 表單驗證類 (未開發)
+
+ - 可驗證為必填欄位
+ - 可驗證EMAIL
+ - 可驗證信用卡
+ 
+### [jInputFormat] 輸入欄位格式化 (未開發)
+
+ - 可依指定格式限定輸入欄位輸入內容及長度
+ 
+### [jTab] 頁籤類 (未開發)
 
  - 可載入指定內容
  - 可動態產生新tab
@@ -55,8 +63,7 @@ ContactMe : arc.jang@gmail.com
 ### [jLayout] 控制類 (未開發)
 
  - 可指定內容項目
- - 
- - 
+
  
  
 
