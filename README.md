@@ -14,7 +14,7 @@ ContactMe : arc.jang@gmail.com
 ### [TableGrid] 表格控制類
 
  - 可由Table直接套用Grid樣式(OK)
- - 可接收外部資料，直接產生Grid，整合[jData](OK)
+ - 可接收外部資料，直接產生Grid，整合jData(OK)
  - 每個表格都可指定對應外部資料表名稱(OK)
  - 可直接進行單格資料編輯(OK)
  - 可整行資料同時編輯(OK)
