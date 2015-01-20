@@ -1,6 +1,6 @@
 # ARC JavaScript Develop Expected List
 
-## 源碼開發狀況
+## 自述
 
 ```sh
 這個程式開發目的主要是[自我練習]及[自用]
@@ -8,6 +8,8 @@
 如果任何人有想要的功能都可以使用[下方EMAIL]連絡我
 ```
 ContactMe : arc.jang@gmail.com
+
+## 源碼開發狀況
 
 ### [TableGrid] 表格控制類
 
