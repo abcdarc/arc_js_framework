@@ -339,7 +339,6 @@ var gridTable = gridTable || {
 				// 如果有指定
 				if(self.addToolBar!=undefined && typeof(self.addToolBar)=='object')
 				{
-					alert('run addButton');
 					// 產生指定按鈕
 					for(var key in self.addToolBar)
 					{
