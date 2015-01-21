@@ -39,7 +39,7 @@
 					old:{edtype:'text',type:'number'}
 				}
 			},
-			// 
+			// 自訂資料表格
 			columns:{
 				id:{title:'編號',width:'50px'},
 				name:{title:'姓名',width:'150px'},
@@ -48,7 +48,23 @@
 				mobile:{title:'手機',width:'150px'},
 				old:{title:'年齡',width:'80px'}
 			},
-			edtable:true // 表單編輯模式 : 預設為 flase
+			// 表單編輯模式 : 預設為 flase
+			edtable:true, 
+			// 自訂工具列
+			addToolBar:{
+				'view':{
+					value:'檢視',
+					run:function(){
+						alert('run view.');
+					}
+				},
+				'show':{
+					value:'顯示',
+					run:function(){
+						alert('run show.');
+					}
+				}
+			}
 		});
 		
 		var table2 = new tableGrid({
