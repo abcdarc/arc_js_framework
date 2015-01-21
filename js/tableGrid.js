@@ -339,10 +339,13 @@ var gridTable = gridTable || {
 				// 如果有指定
 				if(self.addToolBar!=undefined && typeof(self.addToolBar)=='object')
 				{
+					var hobj = self.tableObj.find('thead tr[class=arcGridToolBar] th:eq(0)');
 					// 產生指定按鈕
 					for(var key in self.addToolBar)
 					{
-						
+						var btName = (self.addToolBar[key].value==undefined) ? key : self.addToolBar[key].value ;
+						hobj.append("<input type='button' class='"+key+" arcfrbtn' value='"+btName+"' />");
+						hobj.find('.'+key).click(self.addToolBar[key].run);
 					}
 				}
 				
@@ -403,7 +406,9 @@ var gridTable = gridTable || {
 			var check = confirm('是否刪除該筆資料!!!');
 			if(check)
 			{
+				self.onDel();
 				alert('已刪除!!!'); // 刪除後依頁數重新取得資料
+				self.endDel();
 			}else return false;
 		});
 		
@@ -477,7 +482,9 @@ var gridTable = gridTable || {
 			var check = confirm('是否刪除該筆資料!!!');
 			if(check)
 			{
+				self.onDel();
 				alert('已刪除!!!'); // 刪除後依頁數重新取得資料
+				self.endDel();
 			}else return false;
 		});
 		
