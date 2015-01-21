@@ -14,6 +14,7 @@ var gridTable = gridTable || {
 	edRowIndex:0, // 目前編輯列數ID
 	edKeyId:0,// 目前編輯列的KEY值
 	inlineEditRun:false, // 是否已在行編輯中
+	jspath:'js/', // js路徑
 	tbodyHtml:'', // 
 	theadHtml:'', // 
 	tfootHtml:'', //  
@@ -23,9 +24,9 @@ var gridTable = gridTable || {
 		var self = this;
 		var stringObj = false;
 		
-		self.importJs("js/jTest.js")	// 載入執行時間測式JS
-		self.importJs("js/jDialog.js");	// 載入跳出視窗類JS
-		self.importJs("js/jData.js");	// 載入資料處理類JS
+		self.importJs(self.jspath+"jTest.js")	// 載入執行時間測式JS
+		self.importJs(self.jspath+"jDialog.js");	// 載入跳出視窗類JS
+		self.importJs(self.jspath+"jData.js");	// 載入資料處理類JS
 		
 		self.test = new jTest(); // 載入
 		
@@ -151,7 +152,7 @@ var gridTable = gridTable || {
 			self.tableObj = $(objTypeCode+objTypeName);
 			
 			// 取資料長度
-			self.tData.totalRow = self.tableObj.find('table tbody tr').length;
+			self.tData.totalRow = self.tableObj.find('table tbody tr').length; // 
 			self.tData.totalPage = Math.ceil(self.tData.totalRow/self.tData.pageShowNb);
 			self.tData.listNb = self.tableObj.find('table tbody tr').find('td').length;
 		}
@@ -276,6 +277,8 @@ var gridTable = gridTable || {
 		thead +='</thead>';
 		tbody +='</tbody>';
 		
+		if((self.edtable==true || self.edtable=='tdEdit') || self.edtable=='inlineEdit') self.tData.listNb++;
+		
 		// 如果全部的頁數大於1才產生下方連結
 		if(self.tData.totalPage>1)
 		{
@@ -306,11 +309,7 @@ var gridTable = gridTable || {
 		// 依表單編輯設定 - 產生不同作業
 		if(self.onEdit==false)
 		{
-			// 設定Td點擊作業
-			if((self.edtable==true || self.edtable=='tdEdit')) self.setTdClick();
-			
-			// 設定inlineEdit 
-			if(self.edtable=='inlineEdit')
+			if((self.edtable==true || self.edtable=='tdEdit') || self.edtable=='inlineEdit')
 			{
 				// 產生TH管理格
 				if(self.inlineEditRun==false)
@@ -318,6 +317,21 @@ var gridTable = gridTable || {
 					self.tableObj.find('thead tr').append("<th width='80'>管理</th>");
 					self.inlineEditRun = true;
 				}
+			}
+			
+			// 設定Td點擊作業
+			if((self.edtable==true || self.edtable=='tdEdit'))
+			{
+				// 產生編輯按鈕
+				self.tableObj.find('tbody tr').append("<td style='text-align:center;'><input type='button' value='刪除' class='arcOnlineDel arcfrbtn' /></td>");
+				
+				self.setTdClick();
+			}
+			
+			// 設定inlineEdit 
+			if(self.edtable=='inlineEdit')
+			{
+				
 				// 產生編輯按鈕
 				self.tableObj.find('tbody tr').append("<td style='text-align:center;'><input type='button' value='編輯' class='arcOnlineEdit arcfrbtn' /><input type='button' value='刪除' class='arcOnlineDel arcfrbtn' /><input type='button' value='儲存' class='arcOnlineSave arcfrbtn arcFromHide' /><input type='button' value='取消' class='arcOnlineCancel arcfrbtn arcFromHide'/></td>");
 				

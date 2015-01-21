@@ -27,7 +27,7 @@ var jsData = jsData || {
 		
 		for(var i in self.getList)
 		{
-			self.listNb++;
+			if(self.getList[i].view!=false) self.listNb++;
 		}
 		
 		// 顯示翻頁連結設定
