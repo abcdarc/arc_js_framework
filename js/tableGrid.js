@@ -391,7 +391,7 @@ var gridTable = gridTable || {
 					{
 						var idata = {name:key, type:d.edtype, value:'' };
 						var input = self.createInput(idata);
-						_html += "<div><label>"+key+"</label>"+input+"</div>";
+						_html += "<div><label>"+self.columns[key].title+"</label>"+input+"</div>";
 					}
 				}
 				
@@ -406,7 +406,6 @@ var gridTable = gridTable || {
 						'submit':{
 							value:'送出',
 							run:function(){
-							
 								var savedata = {};
 								savedata[self.tData.dataKey] = self.edKeyId; // 指定ID
 								savedata = self.tData.getFormValue(self.tDialog.dialogObj, savedata); // 取得表單資料
