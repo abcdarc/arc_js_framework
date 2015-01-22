@@ -336,11 +336,11 @@ var gridTable = gridTable || {
 					self.inlineEditRun = true;
 				}
 				
-				// 如果有指定
-				if(self.addToolBar!=undefined && typeof(self.addToolBar)=='object')
+				// 如果有指定自訂按鈕 - 且未建立表格
+				if(self.addToolBar!=undefined && typeof(self.addToolBar)=='object' && !self.isCreateTable)
 				{
 					var hobj = self.tableObj.find('thead tr[class=arcGridToolBar] th:eq(0)');
-					// 產生指定按鈕
+					// 產生自訂按鈕
 					for(var key in self.addToolBar)
 					{
 						var btName = (self.addToolBar[key].value==undefined) ? key : self.addToolBar[key].value ;
