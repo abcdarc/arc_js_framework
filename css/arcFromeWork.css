@@ -1,6 +1,6 @@
 body{margin:50px;font-size:14px;}
 /*最外層 - 導角*/
-#arc_dataGrid{border:1px solid #ccc;border-radius:5px;overflow:hidden;}
+#arc_dataGrid{border:1px solid #ccc;border-radius:0px;overflow:hidden;}
 _#arc_dataGrid tr:first-child th:first-child{border-top-left-radius:3px;overflow:hidden;}
 _#arc_dataGrid tr:first-child th:last-child{border-top-right-radius:3px;overflow:hidden;}
 _#arc_dataGrid tfoot tr:last-child td:first-child{border-bottom-left-radius:3px;overflow:hidden;}

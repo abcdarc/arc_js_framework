@@ -397,7 +397,7 @@ var gridTable = gridTable || {
 				
 				var diaSetting = {
 					obj:'.arcGridDialog', // 指定物件
-					width:'600px', // 指定寬度
+					width:'350px', // 指定寬度
 					height:'260px', // 指定高度
 					title:'編輯', // 指定標題
 					modal:true, // 是否有網屏
