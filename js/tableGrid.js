@@ -563,10 +563,10 @@ var gridTable = gridTable || {
 		});
 		
 	},
+	// 設定視窗編輯按鈕點擊
 	setDialogEditButtonClick:function(){
 		var self = this;
 		var obj = self.tableObj;
-		
 		
 		// 編輯按鈕
 		obj.find('tbody .arcOnlineEdit').unbind('click').bind('click',function(){
@@ -621,23 +621,14 @@ var gridTable = gridTable || {
 	toDialogEdit:function(index){
 		var self = this;
 		var obj = self.tableObj;
-		var rObj = obj.find('tbody tr:eq('+index+') td:visible');
+		var rObj = obj.find('tbody tr:eq('+index+') td');
 		var rLength = rObj.length;
 		
-		/*var newSetting = {
-			html:"Run it is Object.",
-			button:{
-				'submit':{
-					value:'確認',
-					run: runFunction
-				},
-				'cancel':{
-					value:'取消',
-					run: runFunction
-				}
-			}
-		};*/
-		// 更新表單值
+		// 載入表單值
+		rObj.each(function(e){
+			var inputName = '.'+obj.find('thead .arcGridTableList th').eq(e).attr('tableName');
+			self.tDialog.dialogObj.find(inputName).val($(this).text());
+		});
 		
 		// 顯示視窗
 		self.tDialog.show();
@@ -737,17 +728,17 @@ var gridTable = gridTable || {
 		switch(data.type)
 		{
 			case 'text': case 'hiddd': case 'radio': case 'checkbox': case 'submit': case 'botton': case 'image': case 'file': case 'password':
-				input = "<input name='"+data.name+"' type='"+data.type+"' value='"+data.value+"' />";
+				input = "<input name='"+data.name+"' type='"+data.type+"' class='"+data.name+"' value='"+data.value+"' />";
 			break;
 			
 			case 'textarea':
-				input = "<textarea name='"+data.name+"' >"+data.value+"</textarea>";
+				input = "<textarea name='"+data.name+"' class='"+data.name+"' >"+data.value+"</textarea>";
 			break;
 			
 			case 'select':
 				if(data.list!=undefined && typeof(data.list)=='object')
 				{
-					input = "<select name='"+data.name+"'>";
+					input = "<select name='"+data.name+"' class='"+data.name+"'>";
 					for(var key in data.list)
 					{
 						var selected = (key==value) ? 'selected' : '' ;
