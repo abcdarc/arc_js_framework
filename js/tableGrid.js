@@ -632,8 +632,6 @@ var gridTable = gridTable || {
 		
 		// 顯示視窗
 		self.tDialog.show();
-		
-		
 	},
 	// 產生編輯物件
 	tdToEdit:function(obj, data){
