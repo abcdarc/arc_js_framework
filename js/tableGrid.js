@@ -337,7 +337,7 @@ var gridTable = gridTable || {
 				// 產生TH管理格
 				if(self.inlineEditRun==false)
 				{
-					self.tableObj.find('thead tr[class!=arcGridToolBar]').append("<th width='80'>管理</th>");
+					self.tableObj.find('thead tr[class!=arcGridToolBar]').append("<th width='85'>管理</th>");
 					self.inlineEditRun = true;
 				}
 				

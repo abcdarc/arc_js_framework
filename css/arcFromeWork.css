@@ -1,58 +1,62 @@
-body{margin:50px;font-size:14px;}
+body{margin:50px;font-size:14px;color:#888;}
 /*最外層 - 導角*/
-#arc_dataGrid{border:1px solid #ccc;border-radius:0px;overflow:hidden;}
+#arc_dataGrid{border:1px solid #d6d6d6;border-radius:0px;overflow:hidden;}
 _#arc_dataGrid tr:first-child th:first-child{border-top-left-radius:3px;overflow:hidden;}
 _#arc_dataGrid tr:first-child th:last-child{border-top-right-radius:3px;overflow:hidden;}
 _#arc_dataGrid tfoot tr:last-child td:first-child{border-bottom-left-radius:3px;overflow:hidden;}
 _#arc_dataGrid tfoot tr:last-child td:last-child{border-bottom-right-radius:3px;overflow:hidden;}
 /* 連結無底線 */
-#arc_dataGrid a{text-decoration:none;}
+#arc_dataGrid a{text-decoration:none;color:#31adc3;}
 #arc_dataGrid table{width:100%;border-collapse: collapse;}
 /* 翻頁連結工具列 - 內容置中 */
 #arc_dataGrid .flipPageBox{text-align:center;} 
 /* 翻頁連結 */
-#arc_dataGrid .flipPageBox a{_border:1px solid #aaa; margin:0 0 0 5px; padding: 2px 5px 2px 5px;display:inline-block; border-radius:3px;overflow:hidden;}
+#arc_dataGrid .flipPageBox a{_border:1px solid #aaa; margin:0 0 0 5px; padding: 5px 8px 5px 8px;display:inline-block; border-radius:2px;overflow:hidden;}
 /* 翻頁連結 或  滑鼠移置時 */
-#arc_dataGrid .flipPageBox a:hover, #arc_dataGrid .hover{background:#333;color:#fff;}
+#arc_dataGrid .flipPageBox a:hover, #arc_dataGrid .hover{background:#aaa;color:#fff;}
 /* TH 字體大小 */
 #arc_dataGrid table th{font-size:14px;}
 /* TD 字體大小 */
 #arc_dataGrid table td{font-size:13px;height:25px;}
-_#arc_dataGrid tr th:first-child, _#arc_dataGrid tr td:first-child{border-left:1px solid #ccc;}
+_#arc_dataGrid tr th:first-child, _#arc_dataGrid tr td:first-child{border-left:1px solid #d6d6d6;}
 /* TD TH 固定左邊有格線 */
-#arc_dataGrid tr th, #arc_dataGrid tr td{padding:5px;border-right:1px solid #ccc;}
+#arc_dataGrid tr th, #arc_dataGrid tr td{padding:5px;border-right:1px solid #d6d6d6;}
 /* 每個TR 最後一個TD TH 沒有左邊的格線 */
-#arc_dataGrid tr th:last-child, #arc_dataGrid tr td:last-child{border-right:0px solid #ccc;}
+#arc_dataGrid tr th:last-child, #arc_dataGrid tr td:last-child{border-right:0px solid #d6d6d6;}
 /* TH 有下方格線 */
-#arc_dataGrid tr th{background:#eee  url(../images/sbk.jpg) 10px 0px repeat-x;border-bottom:1px solid #ccc;}
+#arc_dataGrid tr th{background:#eee  url(../images/sbk.jpg) 10px 0px repeat-x;border-bottom:1px solid #d6d6d6;}
 /* THEAD TH 連結滑鼠移置時切換底色 */
-#arc_dataGrid thead tr th{text-align:left;height:25px;border-bottom:1px solid #bbb;}
+#arc_dataGrid thead tr th{text-align:left;height:25px;border-bottom:1px solid #d6d6d6;color:#888;}
 #arc_dataGrid thead tr th:hover{color:#666;}
 /* TBODY - 最後一個TR 的TD 都有下方底線 */
-#arc_dataGrid tbody tr:last-child td{border-bottom:1px solid #ccc;}
-_#arc_dataGrid thead tr:first-child th{border-top:1px solid #ccc;}
+#arc_dataGrid tbody tr:last-child td{border-bottom:1px solid #d6d6d6;}
+_#arc_dataGrid thead tr:first-child th{border-top:1px solid #d6d6d6;}
 /* TBODY - 的TR滑鼠移置時 - 變更所有TD底色 */
-#arc_dataGrid tbody tr:hover td{color:#fff; background: #3af;}
+#arc_dataGrid tbody tr:hover td{color:#fff; background: #3af url(../images/tr_hover.jpg) repeat-x;}
 /* TBODY - 的TR交換變更背景顏色 */
-_#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f3f3f3;}
+_#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f6f6f6;}
 /* TFOOT 的TD 背景顏色 */
-#arc_dataGrid tfoot td{background:#eee url(../images/sbk.jpg) 10px 0px;border-top:#ccc solid 1px;}
+#arc_dataGrid tfoot td{background:#eee url(../images/sbk.jpg) 10px 0px;border-top:#d6d6d6 solid 1px;}
 /* 連結被取消時的樣式 */
 #arc_dataGrid a.normal, #arc_dataGrid a.normal:hover{color:#aaa;_border:1px solid #aaa;background:#fff;cursor:text;}
 /* 隱藏內容 */
 #arc_dataGrid .hide{display:none;}
+#arc_dataGrid input{color:#888;}
 #arc_dataGrid input[type=text]{border:1px solid #efefef;border-radius:2px;padding:5px;width:90%;}
+#arc_dataGrid input:hover{color:#989898;box-shadow:0px 0px 5px rgba(40%,40%,40%,0.2);}
 
-.arcfrbtn{border-radius:3px;margin:0 5px 0 0;padding:3px;border:1px solid #999;display:inline-block;cursor:pointer;background:#efefef url(../images/sbk.jpg) 10px -10px repeat-x;}
-.arcfrbtn:hover{background:#ddd;}
+.arcfrbtn{border-radius:2px;min-width:50px;margin:0 5px 0 0;padding:5px;border:1px solid #dedede;display:inline-block;cursor:pointer;background:#efefef url(../images/sbk.jpg) 10px -10px repeat-x;}
+.arcfrbtn:hover{background:#ddd url(../images/sbk_hover.jpg) 10px 0px repeat-x;}
 .arcFromHide{display:none;}
 
 .arcDialog {display:none;border-radius:5px;_border:1px solid #efefef;box-shadow:0px 0px 7px rgba(40%,40%,40%,0.5); position:fixed;z-index:0;left:50%;top:50%;_padding:2px;background:#fff;width:300px;min-width:300px;z-index:1;overflow:hidden;}
-.arcDialogCloseBt {position:absolute;right:5px;cursor:pointer;}
-.arcDialogHead {text-align:left;padding:5px;background:#f1f1f1 url(../images/sbk.jpg) 10px -20px repeat-x;margin-bottom:10px;font-weight:bold;color:#333;border-bottom:1px solid #bbb;}
-.arcDialogBody {padding:0 20px 0 20px;}
+.arcDialogCloseBt {position:absolute;top:7px;right:7px;cursor:pointer;border-radius:2px;border:1px solid #d6d6d6;width:20px;height:20px;line-height:0;background:url(../images/close.gif) no-repeat center;}
+.arcDialogCloseBt:hover{background:#eaeaea url(../images/close.gif) no-repeat center;box-shadow:0px 0px 3px rgba(40%,40%,40%,0.2);}
+.arcDialogHead {box-shadow:0px 0px 7px rgba(40%,40%,40%,0.5);text-align:left;height:20px;padding: 10px 5px 5px 10px;background:#f1f1f1 url(../images/sbk.jpg) 10px -20px repeat-x;margin-bottom:10px;font-size:15px;color:#333;border-bottom:1px solid #d6d6d6;color:#31adc3;}
+.arcDialogBody {padding:0 20px 0 20px;display:table;_background:#f00;overflow:hidden;width:100%;}
 .arcDialogBody div {margin:5px 0 5px 0;}
-.arcDialog label {_width:30%;min-width:80px;max-width:150px;display:inline-block;padding:0 0 0 5px;}
-.arcDialog input {_width:60%;border-radius:2px;border:1px solid #efefef;padding:5px;}
-.arcDialogFoot{text-align:center;padding:5px 0 5px 0;margin-top:10px;border-top:1px solid #bbb;}
+.arcDialog label {_width:30%;min-width:80px;max-width:150px;display:inline-block;padding:0 15px 0 5px;text-align:right;}
+.arcDialog input {_width:60%;border-radius:2px;border:1px solid #dedede;padding:5px;color:#888;}
+.arcDialog input:hover{box-shadow:0px 0px 5px rgba(40%,40%,40%,0.5);}
+.arcDialogFoot{text-align:center;padding: 5px;height:20px;margin-top:5px;_border-top:1px solid #d6d6d6;_background:#f00;display:table;overflow:hidden;width:100%;}
 .arcModal{display:none; width:100%; height:100%; position:fixed;background:rgba(200,200,200,0.5);left:0;top:0;z-index:0;}

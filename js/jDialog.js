@@ -127,7 +127,7 @@ var jsDialog =  jsDialog || {
 			
 			// 產生物件 
 			var modal = '';
-			var head = "<div class='arcDialogHead'>"+self.setting.title+"<span class='arcDialogCloseBt'>x</span></div>";
+			var head = "<div class='arcDialogHead'>"+self.setting.title+"<span class='arcDialogCloseBt'></span></div>";
 			var body="<div class='arcDialogBody'>"+self.html+"</div>"; // 內容列 
 			var footer = "<div class='arcDialogFoot'></div>"; // 下方按鈕列 
 			
