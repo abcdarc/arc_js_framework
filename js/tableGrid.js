@@ -634,6 +634,7 @@ var gridTable = gridTable || {
 			
 			// 設定新增資料時的儲存及取消按鈕
 			var sobj = obj.find('tbody tr:eq(0)');
+			self.autoSize(sobj.find('td'));
 			$('.arcfrbtn', sobj).click(function(){
 				// 新增一筆資料
 				if($(this).is('[class^=arcOnlineSave]'))
@@ -708,8 +709,10 @@ var gridTable = gridTable || {
 	},
 	// 自動符合物件寬度
 	autoSize:function(obj){
-		var offset = obj.offset();
-		obj.find('input,select,textarea').width(obj.width()-10).css({'position':'absolute','left':offset.left+5+'px','top':offset.top+5+'px'});
+		var runObj = obj.find('input,select,textarea');
+		var mObj = runObj.parents('td');
+		var offset = mObj.offset();
+		runObj.width(mObj.width()-10).css({'position':'absolute','left':offset.left+5+'px','top':offset.top+5+'px'});
 	},
 	// 產生編輯物件
 	tdToEdit:function(obj, data){
