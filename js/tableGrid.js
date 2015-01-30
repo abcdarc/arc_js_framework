@@ -408,7 +408,8 @@ var gridTable = gridTable || {
 							value:'送出',
 							run:function(){
 								var savedata = {};
-								savedata[self.tData.dataKey] = self.edKeyId; // 指定ID
+								if(self.edAct=='edit') savedata[self.tData.dataKey] = self.edKeyId; // 編輯時才-指定ID
+								if(self.edAct=='add') delete savedata[self.tData.dataKey];
 								savedata = self.tData.getFormValue(self.tDialog.dialogObj, savedata); // 取得表單資料
 								
 								// 儲存資料

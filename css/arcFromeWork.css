@@ -8,8 +8,8 @@ _#arc_dataGrid tfoot tr:last-child td:last-child{border-bottom-right-radius:3px;
 /* 連結無底線 */
 #arc_dataGrid a{text-decoration:none;color:#31adc3;}
 #arc_dataGrid table{width:100%;border-collapse: collapse;}
-/* 翻頁連結工具列 - 內容置中 */
-#arc_dataGrid .flipPageBox{text-align:center;} 
+/* 翻頁連結[工具列] - 內容置中 */
+#arc_dataGrid .flipPageBox{text-align:left;} 
 /* 翻頁連結 */
 #arc_dataGrid .flipPageBox a{_border:1px solid #aaa; margin:0 0 0 5px; padding: 5px 8px 5px 8px;display:inline-block; border-radius:2px;overflow:hidden;}
 /* 翻頁連結 或  滑鼠移置時 */
@@ -49,14 +49,14 @@ _#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f6f6f6;}
 .arcfrbtn:hover{background:#ddd url(../images/sbk_hover.jpg) 10px 0px repeat-x;}
 .arcFromHide{display:none;}
 
-.arcDialog {display:none;border-radius:5px;_border:1px solid #efefef;box-shadow:0px 0px 7px rgba(40%,40%,40%,0.5); position:fixed;z-index:0;left:50%;top:50%;_padding:2px;background:#fff;width:300px;min-width:300px;z-index:1;overflow:hidden;}
+.arcDialog {display:none;border-radius:5px;_border:1px solid #efefef;box-shadow:0px 0px 7px rgba(40%,40%,40%,0.2); position:fixed;z-index:0;left:50%;top:50%;_padding:2px;background:#fff;width:300px;min-width:300px;z-index:1;overflow:hidden;height:auto;}
 .arcDialogCloseBt {position:absolute;top:7px;right:7px;cursor:pointer;border-radius:2px;border:1px solid #d6d6d6;width:20px;height:20px;line-height:0;background:url(../images/close.gif) no-repeat center;}
-.arcDialogCloseBt:hover{background:#eaeaea url(../images/close.gif) no-repeat center;box-shadow:0px 0px 3px rgba(40%,40%,40%,0.2);}
-.arcDialogHead {box-shadow:0px 0px 7px rgba(40%,40%,40%,0.5);text-align:left;height:20px;padding: 10px 5px 5px 10px;background:#f1f1f1 url(../images/sbk.jpg) 10px -20px repeat-x;margin-bottom:10px;font-size:15px;color:#333;border-bottom:1px solid #d6d6d6;color:#666;}
+.arcDialogCloseBt:hover{background:#fafafa url(../images/close.gif) no-repeat center;box-shadow:0px 0px 3px rgba(40%,40%,40%,0.2);}
+.arcDialogHead {box-shadow:0px 0px 7px rgba(40%,40%,40%,0.2);text-align:left;height:20px;padding: 10px 5px 5px 10px;background:#f1f1f1 url(../images/sbk.jpg) 10px -20px repeat-x;margin-bottom:10px;font-size:15px;color:#333;border-bottom:1px solid #d6d6d6;color:#666;}
 .arcDialogBody {padding:0 20px 0 20px;display:table;_background:#f00;overflow:hidden;width:100%;}
 .arcDialogBody div {margin:5px 0 5px 0;}
 .arcDialog label {_width:30%;min-width:80px;max-width:150px;display:inline-block;padding:0 15px 0 5px;text-align:right;}
 .arcDialog input {_width:60%;border-radius:2px;border:1px solid #dedede;padding:5px;color:#888;}
-.arcDialog input:hover{box-shadow:0px 0px 5px rgba(40%,40%,40%,0.5);}
+.arcDialog input:hover{box-shadow:0px 0px 5px rgba(40%,40%,40%,0.2);}
 .arcDialogFoot{text-align:center;padding: 5px;height:20px;margin-top:5px;_border-top:1px solid #d6d6d6;_background:#f00;display:table;overflow:hidden;width:100%;}
 .arcModal{display:none; width:100%; height:100%; position:fixed;background:rgba(200,200,200,0.5);left:0;top:0;z-index:0;}
