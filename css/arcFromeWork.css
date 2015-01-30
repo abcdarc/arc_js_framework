@@ -52,7 +52,7 @@ _#arc_dataGrid tbody tr:nth-child(even),.evenbk{background: #f6f6f6;}
 .arcDialog {display:none;border-radius:5px;_border:1px solid #efefef;box-shadow:0px 0px 7px rgba(40%,40%,40%,0.5); position:fixed;z-index:0;left:50%;top:50%;_padding:2px;background:#fff;width:300px;min-width:300px;z-index:1;overflow:hidden;}
 .arcDialogCloseBt {position:absolute;top:7px;right:7px;cursor:pointer;border-radius:2px;border:1px solid #d6d6d6;width:20px;height:20px;line-height:0;background:url(../images/close.gif) no-repeat center;}
 .arcDialogCloseBt:hover{background:#eaeaea url(../images/close.gif) no-repeat center;box-shadow:0px 0px 3px rgba(40%,40%,40%,0.2);}
-.arcDialogHead {box-shadow:0px 0px 7px rgba(40%,40%,40%,0.5);text-align:left;height:20px;padding: 10px 5px 5px 10px;background:#f1f1f1 url(../images/sbk.jpg) 10px -20px repeat-x;margin-bottom:10px;font-size:15px;color:#333;border-bottom:1px solid #d6d6d6;color:#31adc3;}
+.arcDialogHead {box-shadow:0px 0px 7px rgba(40%,40%,40%,0.5);text-align:left;height:20px;padding: 10px 5px 5px 10px;background:#f1f1f1 url(../images/sbk.jpg) 10px -20px repeat-x;margin-bottom:10px;font-size:15px;color:#333;border-bottom:1px solid #d6d6d6;color:#666;}
 .arcDialogBody {padding:0 20px 0 20px;display:table;_background:#f00;overflow:hidden;width:100%;}
 .arcDialogBody div {margin:5px 0 5px 0;}
 .arcDialog label {_width:30%;min-width:80px;max-width:150px;display:inline-block;padding:0 15px 0 5px;text-align:right;}
