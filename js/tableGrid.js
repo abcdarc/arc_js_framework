@@ -706,6 +706,11 @@ var gridTable = gridTable || {
 		// 顯示視窗
 		self.tDialog.show();
 	},
+	// 自動符合物件寬度
+	autoSize:function(obj){
+		var offset = obj.offset();
+		obj.find('input,select,textarea').width(obj.width()-10).css({'position':'absolute','left':offset.left+5+'px','top':offset.top+5+'px'});
+	},
 	// 產生編輯物件
 	tdToEdit:function(obj, data){
 		var self = this;
@@ -718,6 +723,7 @@ var gridTable = gridTable || {
 			data.value = self.tempValue.text; // 輸入值
 			self.tempValue.input = self.createInput(data); // 產生表單
 			obj.html(self.tempValue.input); // 載入表單
+			self.autoSize(obj);
 		}
 		
 		// 行編輯
@@ -735,6 +741,7 @@ var gridTable = gridTable || {
 				data.value = self.tempValue.text[lh]; // 輸入值
 				self.tempValue.input = self.createInput(data); // 產生表單
 				obj.html(self.tempValue.input); // 載入表單
+				self.autoSize(obj);
 			}
 		}
 		
