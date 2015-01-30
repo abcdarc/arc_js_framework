@@ -19,6 +19,16 @@
 			// 載入資料控制
 			data:{
 				data:tableData, // 指定讀取資料
+				transport:{ // 即時串接
+					add:{
+						url:'', // 執行網址
+						dataType:'json', // 資料類別
+						type:'post' // 傳輸方法
+					},
+					del:{url:'',dataType:'json',type:'post'},
+					edit:{url:'',dataType:'json',type:'post'},
+					read:{url:'',dataType:'json',type:'post'}
+				},
 				dataKey:'id',// 設定鍵值
 				pageShowNb : 2, // 每頁顯示筆數 : 預設為20筆
 				showPageLink : 10, // 每頁顯示翻頁連結數 : 預設為5筆 , 最多9筆 , 只會是積數
@@ -73,6 +83,16 @@
 			// 載入資料控制
 			data:{
 				data:tableData, // 指定讀取資料
+				transport:{ // 即時串接
+					add:{
+						url:'', // 執行網址
+						dataType:'json', // 資料類別
+						type:'post' // 傳輸方法
+					},
+					del:{url:'',dataType:'json',type:'post'},
+					edit:{url:'',dataType:'json',type:'post'},
+					read:{url:'',dataType:'json',type:'post'}
+				},
 				dataKey:'id',// 設定鍵值
 				pageShowNb : 3, // 每頁顯示筆數 : 預設為20筆
 				showPageLink : 10, // 每頁顯示翻頁連結數 : 預設為5筆 , 最多9筆 , 只會是積數
@@ -105,6 +125,16 @@
 			// 載入資料控制
 			data:{
 				data:tableData, // 指定讀取資料
+				transport:{ // 即時串接
+					add:{
+						url:'', // 執行網址
+						dataType:'json', // 資料類別
+						type:'post' // 傳輸方法
+					},
+					del:{url:'',dataType:'json',type:'post'},
+					edit:{url:'',dataType:'json',type:'post'},
+					read:{url:'',dataType:'json',type:'post'}
+				},
 				dataKey:'id',// 設定鍵值
 				pageShowNb : 20, // 每頁顯示筆數 : 預設為20筆
 				showPageLink : 10, // 每頁顯示翻頁連結數 : 預設為5筆 , 最多9筆 , 只會是積數

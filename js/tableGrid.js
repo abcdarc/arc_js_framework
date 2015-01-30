@@ -10,6 +10,7 @@ var gridTable = gridTable || {
 	isCreateTable:false, // 是否已產生表格物件 
 	isTable:false, // 物件或物件內 是否有Table 
 	edtable:false, // 編輯表單類別 : true, 'tdEdit', 'inlineEdit', 'dialogEdit'
+	edAct:'', // 目前編輯模式
 	onEdit:false, // 是否正在編輯中 
 	edIndex:0, // 目前編輯行數ID 
 	edRowIndex:0, // 目前編輯列數ID 
@@ -411,6 +412,7 @@ var gridTable = gridTable || {
 								savedata = self.tData.getFormValue(self.tDialog.dialogObj, savedata); // 取得表單資料
 								
 								// 儲存資料
+								alert(self.edAct);
 								self.onSave();
 								self.tData.viewObj(savedata); // 先跑AJAX儲存後 - 看結果後再另外處理
 								self.endSave();
@@ -450,7 +452,7 @@ var gridTable = gridTable || {
 	// TR 表格間隔變色
 	tableTrEvenBkChange:function(){
 		var self = this;
-		self.tableObj.find('table tbody').removeClass('evenbk');
+		self.tableObj.find('table tbody tr').removeClass('evenbk');
 		self.tableObj.find('table tbody tr:odd').addClass('evenbk');
 	},
 	// TR 點擊作業
@@ -480,8 +482,9 @@ var gridTable = gridTable || {
 		
 		// 新增按鈕
 		obj.find('thead .arcAddRow').unbind('click').bind('click',function(){
+			self.edAct = 'add';
 			self.onAdd();
-			alert('新增一筆資料');
+			self.addList();
 			self.endAdd();
 		});
 		
@@ -509,6 +512,7 @@ var gridTable = gridTable || {
 			if(self.onEdit===true) return false; // #######應該要改成 - 如果編輯ID不同 - 詢問是否要存儲 - 或取消儲存
 			var data = {};
 			var mobj = $(this).parents('tr'); // 取得所屬行物件
+			self.edAct = 'edit';
 			self.edIndex = obj.find('tbody tr').index(mobj); // 取得目前編輯清單列流水號
 			self.edKeyId = mobj.attr('list_id'); // 取得目前資料KEYID
 			self.toOnlineEdit(self.edIndex);
@@ -556,8 +560,9 @@ var gridTable = gridTable || {
 		
 		// 新增按鈕
 		obj.find('thead .arcAddRow').unbind('click').bind('click',function(){
+			self.edAct = 'add';
 			self.onAdd();
-			alert('新增一筆資料');
+			self.addList();
 			self.endAdd();
 		});
 		
@@ -572,6 +577,7 @@ var gridTable = gridTable || {
 			if(self.onEdit===true) return false; // #######應該要改成 - 如果編輯ID不同 - 詢問是否要存儲 - 或取消儲存
 			var data = {};
 			var mobj = $(this).parents('tr'); // 取得所屬行物件
+			self.edAct = 'edit';
 			self.edIndex = obj.find('tbody tr').index(mobj); // 取得目前編輯清單列流水號
 			self.edKeyId = mobj.attr('list_id'); // 取得目前資料KEYID
 			self.toDialogEdit(self.edIndex);
@@ -590,10 +596,77 @@ var gridTable = gridTable || {
 		
 		// 新增按鈕
 		obj.find('thead .arcAddRow').unbind('click').bind('click',function(){
+			self.edAct = 'add';
 			self.onAdd();
-			alert('新增一筆資料');
+			self.addList();
 			self.endAdd();
 		});
+	},
+	// 新增一筆資料
+	addList:function(){
+		var self = this;
+		var obj = self.tableObj;
+		var act = self.edtable;
+		
+		// td格編輯 : 行編輯
+		if(act==true || act=='toEdit' || act=='inlineEdit')
+		{
+			// 在最上方新增筆新資料
+			var newList = '';
+			for(var key in self.tData.getList)
+			{
+				var d = self.tData.getList[key];
+				if(d.edtable!==false)
+				{
+					var idata = {name:key, type:d.edtype, value:'' };
+					var input = self.createInput(idata);
+					newList += "<td>"+input+"</td>";
+				}
+				if(d.edtable===false && d.view!==false)
+				{
+					newList += '<td></td>';
+				}
+			}
+			// 新增按鈕
+			newList+="<td><input type='button' value='儲存' class='arcOnlineSave arcfrbtn' /><input type='button' value='取消' class='arcOnlineCancel arcfrbtn'/></td>";
+			obj.find('tbody').prepend('<tr>'+newList+'</tr>');
+			
+			// 設定新增資料時的儲存及取消按鈕
+			var sobj = obj.find('tbody tr:eq(0)');
+			$('.arcfrbtn', sobj).click(function(){
+				// 新增一筆資料
+				if($(this).is('[class^=arcOnlineSave]'))
+				{
+					alert('add new data.'); // 新增一筆資料
+					self.jumpPageTo(1);// 回到第一頁
+				}
+				// 取消新增
+				if($(this).is('[class^=arcOnlineCancel]'))
+				{
+					$(this).parents('tr').remove();
+					self.tableTrEvenBkChange();
+				}
+			});
+			
+			self.tableTrEvenBkChange(); // 變更表格變色
+		}
+		
+		// dialog編輯
+		if(act=='dialogEdit')
+		{
+			// 清空所有值
+			self.edAct = 'add';
+			self.tDialog.dialogObj.find('input[name!=button],input[name!=submit],select,textarea').val('');
+			self.tDialog.show(); // 顯示跳出視窗
+		}
+	},
+	// 跳至指定頁面
+	jumpPageTo:function(page)
+	{
+		var self = this;
+		self.tData.nowPage=1;
+		self.tData.startPage = (self.tData.nowPage-1)*self.tData.pageShowNb;
+		self.createTable();
 	},
 	// 開始在線編輯
 	toOnlineEdit:function(index){
@@ -695,27 +768,27 @@ var gridTable = gridTable || {
 	},
 	// 開始編輯
 	onSave:function(){
-		alert('onSave');
+		//alert('onSave');
 	},
 	// 結束編輯
 	endSave:function(){
-		alert('endSave');
+		//alert('endSave');
 	},
 	// 開始刪除
 	onDel:function(){
-		alert('onDel');
+		//alert('onDel');
 	},
 	// 結束刪除
 	endDel:function(){
-		alert('endDel');
+		//alert('endDel');
 	},
 	// 開始新增
 	onAdd:function(){
-		alert('onAdd');
+		//alert('onAdd');
 	},
 	// 結束新增
 	endAdd:function(){
-		alert('endAdd');
+		//alert('endAdd');
 	},
 	// 產生表單物件 name, type, value, list, tags
 	createInput:function(data){
