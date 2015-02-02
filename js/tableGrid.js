@@ -472,6 +472,8 @@ var gridTable = gridTable || {
 		
 		// 刪除按鈕
 		obj.find('tbody .arcOnlineDel').unbind('click').bind('click',function(){
+			if(self.onEdit) return false; // 已在編輯作業 : 停止
+			
 			var check = confirm('是否刪除該筆資料!!!');
 			if(check)
 			{
@@ -550,6 +552,8 @@ var gridTable = gridTable || {
 		
 		// 刪除按鈕
 		obj.find('tbody .arcOnlineDel').unbind('click').bind('click',function(){
+			if(self.onEdit) return false; // 已在編輯作業 : 停止
+			
 			var check = confirm('是否刪除該筆資料!!!');
 			if(check)
 			{
@@ -586,6 +590,8 @@ var gridTable = gridTable || {
 		
 		// 刪除按鈕
 		obj.find('tbody .arcOnlineDel').unbind('click').bind('click',function(){
+			if(self.onEdit) return false; // 已在編輯作業 : 停止
+			
 			var check = confirm('是否刪除該筆資料!!!');
 			if(check)
 			{
