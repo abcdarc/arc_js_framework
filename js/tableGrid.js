@@ -413,17 +413,19 @@ var gridTable = gridTable || {
 								savedata = self.tData.getFormValue(self.tDialog.dialogObj, savedata); // 取得表單資料
 								
 								// 儲存資料
-								alert(self.edAct);
+								//alert(self.edAct);
 								self.onSave();
 								self.tData.viewObj(savedata); // 先跑AJAX儲存後 - 看結果後再另外處理
 								self.endSave();
 								self.tDialog.close(); //關閉視窗
+								self.onEdit = false;
 							}
 						},
 						'cancel':{
 							value:'取消',
 							run:function(){
 								self.tDialog.close();
+								self.onEdit = false;
 							}
 						}
 					}
@@ -548,6 +550,7 @@ var gridTable = gridTable || {
 			self.onSave();
 			self.tData.viewObj(savedata); // 先跑AJAX儲存後 - 看結果後再另外處理
 			self.endSave();
+			
 		});
 		
 		// 刪除按鈕
