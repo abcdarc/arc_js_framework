@@ -609,6 +609,10 @@ var gridTable = gridTable || {
 		var obj = self.tableObj;
 		var act = self.edtable;
 		
+		
+		if(self.onEdit) return false; // 已在編輯作業 : 停止
+		else self.onEdit = true;// 開始編輯作業
+		
 		// td格編輯 : 行編輯
 		if(act==true || act=='toEdit' || act=='inlineEdit')
 		{
@@ -634,7 +638,13 @@ var gridTable = gridTable || {
 			
 			// 設定新增資料時的儲存及取消按鈕
 			var sobj = obj.find('tbody tr:eq(0)');
-			self.autoSize(sobj.find('td'));
+			
+			// 變更寬度
+			sobj.find('td').each(function(){
+				self.autoSize($(this));
+			});
+			
+			// 執行有問題
 			$('.arcfrbtn', sobj).click(function(){
 				// 新增一筆資料
 				if($(this).is('[class^=arcOnlineSave]'))
@@ -648,8 +658,8 @@ var gridTable = gridTable || {
 					$(this).parents('tr').remove();
 					self.tableTrEvenBkChange();
 				}
+				self.onEdit = false; // 結束編輯作業
 			});
-			
 			self.tableTrEvenBkChange(); // 變更表格變色
 		}
 		
@@ -709,10 +719,14 @@ var gridTable = gridTable || {
 	},
 	// 自動符合物件寬度
 	autoSize:function(obj){
-		var runObj = obj.find('input,select,textarea');
-		var mObj = runObj.parents('td');
-		var offset = mObj.offset();
-		runObj.width(mObj.width()-10).css({'position':'absolute','left':offset.left+5+'px','top':offset.top+5+'px'});
+		// obj : td
+		if(obj.html()!='')
+		{
+			var runObj = obj.find('input,select,textarea');
+			var mObj = runObj.parents('td');
+			var offset = mObj.offset();
+			if(runObj.is('[type!=button]')) runObj.width(mObj.width()-10).css({'position':'absolute','left':offset.left+5+'px','top':offset.top+5+'px'});
+		}
 	},
 	// 產生編輯物件
 	tdToEdit:function(obj, data){
