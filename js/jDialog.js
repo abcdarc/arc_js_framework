@@ -21,6 +21,8 @@ var jsDialog =  jsDialog || {
 	isCreate:false, // 是否已建立過 
 	parentTagName:'', // 取出所屬物件階層 
 	parentObj:{}, // 所屬物件 
+	onOpen:false, // 視窗開啟
+	onClose:false, // 視窗關閉
 	defaultButton:{ // 預設按鈕 : 允許值為
 		'submit':{
 			value:'確認',
@@ -98,6 +100,16 @@ var jsDialog =  jsDialog || {
 		if(set.button!=undefined )
 		{
 			self.button = set.button;
+		}
+		
+		if(set.onOpen!=undefined && typeof(set.onOpen)=='function')
+		{
+			self.onOpen = set.onOpen;
+		}
+		
+		if(set.onClose!=undefined && typeof(set.onClose)=='function')
+		{
+			self.onClose = set.onClose;
 		}
 		
 		// ****** 取視窗呎吋及定位 - 重新定義視窗狀態
@@ -294,11 +306,13 @@ var jsDialog =  jsDialog || {
 		
 		if(self.isclose)
 		{
+			if(self.onClose) self.onClose();
 			self.dialogObj.hide();
 			if(self.modal) $('.arcModal').hide();
 		}
 		else
 		{
+			if(self.onOpen) self.onOpen();
 			self.dialogObj.show();
 			if(self.modal) $('.arcModal').show();
 		}

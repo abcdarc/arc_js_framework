@@ -332,7 +332,7 @@ var gridTable = gridTable || {
 		
 		// 依表單編輯設定 - 產生不同作業
 		if(self.onEdit==false)
-		{
+		{}
 			if(self.edtable)
 			{
 				// 產生TH管理格
@@ -396,6 +396,7 @@ var gridTable = gridTable || {
 					}
 				}
 				
+				// 跳出視窗設定
 				var diaSetting = {
 					obj:'.arcGridDialog', // 指定物件
 					width:'350px', // 指定寬度
@@ -403,6 +404,10 @@ var gridTable = gridTable || {
 					title:'編輯', // 指定標題
 					modal:true, // 是否有網屏
 					html:_html,
+					onClose:function(){
+						self.onEdit = false; // 關閉時
+					},
+					// 視窗按鈕
 					button:{
 						'submit':{
 							value:'送出',
@@ -418,14 +423,12 @@ var gridTable = gridTable || {
 								self.tData.viewObj(savedata); // 先跑AJAX儲存後 - 看結果後再另外處理
 								self.endSave();
 								self.tDialog.close(); //關閉視窗
-								self.onEdit = false;
 							}
 						},
 						'cancel':{
 							value:'取消',
 							run:function(){
 								self.tDialog.close();
-								self.onEdit = false;
 							}
 						}
 					}
@@ -441,7 +444,7 @@ var gridTable = gridTable || {
 				self.setDialogEditButtonClick();
 			}
 			
-		}
+		
 		
 		// 設定[翻頁連結]點擊作業
 		self.tData.setFlipPageClick(self, self.tableObj); 
@@ -479,9 +482,14 @@ var gridTable = gridTable || {
 			var check = confirm('是否刪除該筆資料!!!');
 			if(check)
 			{
-				self.onDel();
-				alert('已刪除!!!'); // 刪除後依頁數重新取得資料
-				self.endDel();
+				var runonDel = self.onDel();
+				if(runonDel)
+				{
+					$(this).parents('tr').remove();
+					alert('已刪除!!!'); // 刪除後依頁數重新取得資料
+					self.jumpPageTo(self.nowPage);
+					self.endDel();
+				}
 			}else return false;
 		});
 		
@@ -560,9 +568,14 @@ var gridTable = gridTable || {
 			var check = confirm('是否刪除該筆資料!!!');
 			if(check)
 			{
-				self.onDel();
-				alert('已刪除!!!'); // 刪除後依頁數重新取得資料
-				self.endDel();
+				var runonDel = self.onDel();
+				if(runonDel)
+				{
+					$(this).parents('tr').remove();
+					alert('已刪除!!!'); // 刪除後依頁數重新取得資料
+					self.jumpPageTo(self.nowPage);
+					self.endDel();
+				}
 			}else return false;
 		});
 		
@@ -598,9 +611,14 @@ var gridTable = gridTable || {
 			var check = confirm('是否刪除該筆資料!!!');
 			if(check)
 			{
-				self.onDel();
-				alert('已刪除!!!'); // 刪除後依頁數重新取得資料
-				self.endDel();
+				var runonDel = self.onDel();
+				if(runonDel)
+				{
+					$(this).parents('tr').remove();
+					alert('已刪除!!!'); // 刪除後依頁數重新取得資料
+					self.jumpPageTo(self.nowPage);
+					self.endDel();
+				}
 			}else return false;
 		});
 		
@@ -809,8 +827,14 @@ var gridTable = gridTable || {
 		//alert('endSave');
 	},
 	// 開始刪除
-	onDel:function(){
-		//alert('onDel');
+	onDel:function(e){
+		if(e!=undefined)
+		{
+			var runE = e();
+			if(runE!=undefined) return true;
+			else return runE;
+		}
+		else return true;
 	},
 	// 結束刪除
 	endDel:function(){
@@ -864,7 +888,7 @@ var gridTable = gridTable || {
 	// 產生預設的CSS
 	createTableCss:function(boxIdName)
 	{// @@@@@@@@@@@@@@@未更新
-		var defaultStyle ='<style class="arc_dataGrid">#arc_dataGrid tr:first-child th:first-child{border-top-left-radius:3px;overflow:hidden;}#arc_dataGrid tr:first-child th:last-child{border-top-right-radius:3px;overflow:hidden;}#arc_dataGrid tfoot tr:last-child td:first-child{border-bottom-left-radius:3px;overflow:hidden;}#arc_dataGrid tfoot tr:last-child td:last-child{border-bottom-right-radius:3px;overflow:hidden;}#arc_dataGrid a{text-decoration:none;}#arc_dataGrid .flipPageBox{text-align:center;}#arc_dataGrid .flipPageBox a{border:1px solid #ddd; margin:0 0 0 5px; padding: 2px 5px 2px 5px;display:inline-block; border-radius:3px;overflow:hidden;}#arc_dataGrid .flipPageBox a:hover,#arc_dataGrid .hover{background:#333;color:#fff;}#arc_dataGrid table th{font-size:14px;}#arc_dataGrid table td{font-size:13px;}#arc_dataGrid tr th:first-child,#arc_dataGrid tr td:first-child{border-left:1px solid #ccc;}#arc_dataGrid tr th,#arc_dataGrid tr td{padding:5px;border-right:1px solid #ccc;}#arc_dataGrid tr th{background:#eee;border-bottom:1px solid #ccc;}#arc_dataGrid thead tr th:hover{color:#666;}#arc_dataGrid table tr:last-child td{border-bottom:1px solid #ccc;}#arc_dataGrid thead tr:first-child th{border-top:1px solid #ccc;}#arc_dataGrid tbody tr:hover td{color:#fff; background: #3af;}#arc_dataGrid tbody tr:nth-child(even){background: #eee;}#arc_dataGrid tfoot td{background:#eee;}#arc_dataGrid a.normal,#arc_dataGrid a.normal:hover{color:#aaa;border:1px solid #eee;background:#fff;cursor:text;}#arc_dataGrid .hide{display:none;}</style>';
+		var defaultStyle ='';
 		
 		// 頁面還沒有宣告任何[資料表格樣式]前
 		//if($('head style[class=arc_dataGrid]').text()=='' || $('head style[class=arc_dataGrid]')==undefined) $('head').prepend(defaultStyle);
