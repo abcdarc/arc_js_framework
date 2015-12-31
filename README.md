@@ -22,6 +22,8 @@ ContactMe : arc.jang@gmail.com
  - 可使用跳出視窗進行編輯(OK) 
  - 可整頁Table同時編輯再一次儲存
  - 可產生子GRID用來檢視母GRID清單的細節
+ - 每筆資料可以另外指定外部欄位值當固定值,並指定在指定群組裡,
+ - 
 	
 ### [jData] 資料控制類
 
@@ -43,8 +45,11 @@ ContactMe : arc.jang@gmail.com
  - 可新增AutoCompany
  - 可新增DataPicker
  - 可新增TimePicker
- - NumnerText
- - 欄位提示文字功能
+ - NumnerText(待確認)
+ - 輸入欄位提示文字功能
+ - Mobile欄位
+ - Tel欄位
+ - Email欄位
  
 ### [jValidation] 表單驗證類 (未開發)
 
